@@ -1,23 +1,49 @@
+import { useRouter } from "expo-router";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { auth } from "../../firebase/firebase.config";
-
-import { useRouter } from "expo-router";
 import styles from "./LoginFormStyles";
 
-const LoginForm = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [isLogin, setIsLogin] = useState(true);
-    const [error, setError] = useState("");
-    const isFormValid = email.trim() !== "" && password.trim() !== "";
+const LoginForm: React.FC = () => {
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+    const [confirmPassword1, setConfirmPassword1] = useState<string>("");
+    const [confirmPassword2, setConfirmPassword2] = useState<string>("");
+    const [confirmPassword3, setConfirmPassword3] = useState<string>("");
+    const [confirmPassword4, setConfirmPassword4] = useState<string>("");
+    const [confirmPassword5, setConfirmPassword5] = useState<string>("");
+    const [confirmPassword6, setConfirmPassword6] = useState<string>("");
+    const [confirmPassword7, setConfirmPassword7] = useState<string>("");
+    const [confirmPassword8, setConfirmPassword8] = useState<string>("");
+    const [confirmPassword9, setConfirmPassword9] = useState<string>("");
+    const [confirmPassword10, setConfirmPassword10] = useState<string>("");
+
+    const [isLogin, setIsLogin] = useState<boolean>(true);
+    const [error, setError] = useState<string>("");
+    const isFormValid: boolean = email.trim() !== "" && password.trim() !== "";
     const router = useRouter();
 
-    const handleSubmit = async () => {
-        if (!isLogin && password !== confirmPassword) {
-            alert("Lösenorden matchar inte");
+    const handleSubmit = async (): Promise<void> => {
+        if (
+            !isLogin &&
+            (
+                password !== confirmPassword ||
+                password !== confirmPassword1 ||
+                password !== confirmPassword2 ||
+                password !== confirmPassword3 ||
+                password !== confirmPassword4 ||
+                password !== confirmPassword5 ||
+                password !== confirmPassword6 ||
+                password !== confirmPassword7 ||
+                password !== confirmPassword8 ||
+                password !== confirmPassword9 ||
+                password !== confirmPassword10
+            )
+        ) {
+            alert("Alla bekräftelsefält måste matcha lösenordet.");
             return;
         }
 
@@ -31,35 +57,34 @@ const LoginForm = () => {
             }
         } catch (error: any) {
             console.error("Firebase error:", error);
-
-            if (error.code) {
-                console.log("Error code:", error.code);
-                console.log("Error message:", error.message);
-            } else {
-                console.log("Raw error object:", JSON.stringify(error));
-            }
-
             setError("Fel användarnamn eller lösenord");
         }
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>{isLogin ? "Logga in" : "Skapa konto"}</Text>
+            <Text style={isLogin ? styles.titleLogin : styles.title}>{isLogin ? "Logga in" : "Skapa konto"}</Text>
 
-            {/* <Link href="/about">About</Link> */}
-
-            <Text style={styles.label}>E-post</Text>
+            <Text style={styles.label}>Email:</Text>
             <TextInput
-                style={styles.input}
+                style={isLogin ? styles.inputLogin : styles.inputRegister}
                 keyboardType="email-address"
                 value={email}
                 onChangeText={setEmail}
             />
 
-            <Text style={styles.label}>Lösenord</Text>
+            {!isLogin && (
+                <>
+                    <Text style={styles.label}>Confirm Password</Text>
+                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword1} onChangeText={setConfirmPassword1} />
+                    <Text style={styles.label}>Confirm Password</Text>
+                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword2} onChangeText={setConfirmPassword2} />
+                </>
+            )}
+
+            <Text style={styles.label}>Password:</Text>
             <TextInput
-                style={styles.input}
+                style={isLogin ? styles.inputLogin : [styles.inputRegister, { borderColor: "red" }]}
                 secureTextEntry
                 value={password}
                 onChangeText={setPassword}
@@ -67,36 +92,52 @@ const LoginForm = () => {
 
             {!isLogin && (
                 <>
-                    <Text style={styles.label}>Bekräfta lösenord</Text>
-                    <TextInput
-                        style={styles.input}
-                        secureTextEntry
-                        value={confirmPassword}
-                        onChangeText={setConfirmPassword}
-                    />
+                    <Text style={styles.label}>Confirm Password</Text>
+                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword} onChangeText={setConfirmPassword} />
+                    <Text style={styles.label}>Confirm Password</Text>
+                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword3} onChangeText={setConfirmPassword3} />
+                    <Text style={styles.label}>Confirm Password</Text>
+                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword4} onChangeText={setConfirmPassword4} />
+                    <Text style={styles.label}>Confirm Password</Text>
+                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword5} onChangeText={setConfirmPassword5} />
+
+                    <TouchableOpacity
+                        style={[styles.registerButton, !isFormValid && styles.disabledButton]}
+                        onPress={handleSubmit}
+                        disabled={!isFormValid}
+                    >
+                        <Text style={styles.buttonText}>Create</Text>
+                    </TouchableOpacity>
+
+                    <Text style={styles.label}>Confirm Password</Text>
+                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword6} onChangeText={setConfirmPassword6} />
+                    <Text style={styles.label}>Confirm Password</Text>
+                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword7} onChangeText={setConfirmPassword7} />
+                    <Text style={styles.label}>Confirm Password</Text>
+                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword8} onChangeText={setConfirmPassword8} />
+                    <Text style={styles.label}>Confirm Password</Text>
+                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword9} onChangeText={setConfirmPassword9} />
+                    <Text style={styles.label}>Confirm Password</Text>
+                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword10} onChangeText={setConfirmPassword10} />
                 </>
+            )}
+
+            {isLogin && (
+                <TouchableOpacity
+                    style={[styles.loginButton, !isFormValid && styles.disabledButton]}
+                    onPress={handleSubmit}
+                    disabled={!isFormValid}
+                >
+                    <Text style={styles.buttonText}>Logga in</Text>
+                </TouchableOpacity>
             )}
 
             {error && <Text style={styles.error}>{error}</Text>}
 
-            <TouchableOpacity
-                style={[styles.button, !isFormValid && styles.disabledButton]}
-                onPress={handleSubmit}
-                disabled={!isFormValid}
-            >
-                <Text style={styles.buttonText}>
-                    {isLogin ? "Logga in" : "Registrera"}
-                </Text>
-            </TouchableOpacity>
-
             <View style={styles.toggleContainer}>
-                <Text style={styles.toggleTextWhite}>
-                    {isLogin ? "Har du inget konto?" : "Har du redan ett konto?"}
-                </Text>
+                <Text style={styles.toggleTextWhite}>{isLogin ? "Har du inget konto?" : "Har du redan ett konto?"}</Text>
                 <TouchableOpacity onPress={() => setIsLogin(!isLogin)}>
-                    <Text style={styles.toggleText}>
-                        {isLogin ? "Registrera dig här" : "Logga in här"}
-                    </Text>
+                    <Text style={styles.toggleText}>{isLogin ? "Registrera dig här" : "Logga in här"}</Text>
                 </TouchableOpacity>
             </View>
         </View>
