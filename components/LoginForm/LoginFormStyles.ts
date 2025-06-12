@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         padding: 20,
     },
@@ -48,4 +48,10 @@ export const styles = StyleSheet.create({
     toggleTextWhite: {
         color: "white",
     },
+    disabledButton: {
+        backgroundColor: "gray",
+        color: "white",
+    },
 });
+
+export default styles;

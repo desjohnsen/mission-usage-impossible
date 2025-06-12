@@ -4,13 +4,13 @@ import { getAuth } from "firebase/auth";
 import { CustomExpoConfig } from "../app.config";
 
 const {
-  apiKey,
-  authDomain,
-  projectId,
-  storageBucket,
-  messagingSenderId,
-  appId,
-  measurementId,
+    apiKey,
+    authDomain,
+    projectId,
+    storageBucket,
+    messagingSenderId,
+    appId,
+    measurementId,
 } = (Constants.expoConfig as CustomExpoConfig)?.extra || {};
 
 const firebaseConfig = {
@@ -27,4 +27,3 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 export { app, auth };
-
