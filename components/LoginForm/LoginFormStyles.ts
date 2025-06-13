@@ -1,7 +1,12 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    container: {
+    containerRegister: {
+        padding: 20,
+        backgroundColor: "#5b9f91",
+        flex: 1,
+    },
+    containerLogin: {
         padding: 20,
         backgroundColor: "#5b9f91",
         flex: 1,
@@ -28,7 +33,19 @@ const styles = StyleSheet.create({
         color: "orange",
         fontWeight: "bold",
     },
-    inputLogin: {
+    labelRegister: {
+        marginTop: 10,
+        marginBottom: 5,
+        color: "orange",
+        fontWeight: "bold",
+    },
+    labelEmailLogin: {
+        marginTop: 10,
+        marginBottom: 5,
+        color: "orange",
+        fontWeight: "bold",
+    },
+    inputEmailLogin: {
         borderWidth: 2,
         borderColor: "green",
         borderRadius: 10,
@@ -37,6 +54,25 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         color: "red",
         fontWeight: "bold",
+        marginLeft: 70,
+    },
+    labelPasswordLogin: {
+        marginTop: 10,
+        marginBottom: 5,
+        color: "orange",
+        fontWeight: "bold",
+    },
+    inputPasswordLogin: {
+        borderWidth: 2,
+        borderColor: "green",
+        borderRadius: 10,
+        padding: 12,
+        marginBottom: 10,
+        backgroundColor: "white",
+        color: "red",
+        fontWeight: "bold",
+        marginLeft: 70,
+        
     },
     inputRegister: {
         borderWidth: 2,
@@ -46,7 +82,6 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         backgroundColor: "white",
         color: "black",
-        // shadowColor: "#ff0000",
         shadowOffset: { width: 2, height: 2 },
         shadowOpacity: 1,
         shadowRadius: 4,
