@@ -54,10 +54,10 @@ const LoginForm: React.FC = () => {
         try {
             if (isLogin) {
                 await signInWithEmailAndPassword(auth, email, password);
-                router.push("/explore");
+                router.push("/about");
             } else {
                 await createUserWithEmailAndPassword(auth, email, password);
-                router.push("/explore");
+                router.push("/index");
             }
         } catch (error: any) {
             console.error("Firebase error:", error);
@@ -66,7 +66,7 @@ const LoginForm: React.FC = () => {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[isLogin ? styles.containerLogin : styles.containerRegister]}>
             <Text style={isLogin ? styles.titleLogin : styles.title}>{isLogin ? "Logga in" : "Skapa konto"}</Text>
 
             <Text style={styles.label}>Email:</Text>
