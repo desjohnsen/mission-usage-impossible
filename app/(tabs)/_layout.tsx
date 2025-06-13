@@ -9,7 +9,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 
 export default function TabLayout() {
-    const colorScheme = useColorScheme();
+  const colorScheme = useColorScheme();
 
   return (
     <Tabs
@@ -20,12 +20,20 @@ export default function TabLayout() {
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
-            // Use a transparent background on iOS to show the blur effect
             position: 'absolute',
+            height: 80,
+            padding: 1,
           },
-          default: {},
+          default: {
+            height: 80,
+            padding: 1,
+          },
         }),
-      }}>
+        tabBarLabelStyle: {
+          padding: 1,
+        },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
@@ -44,7 +52,7 @@ export default function TabLayout() {
         name="about"
         options={{
           title: 'About',
-          tabBarIcon: ({ color, size }) => <Ionicons name="happy" size={size} color={color} />,
+          tabBarIcon: ({ color, size }) => <Ionicons size={28} name="happy" color={color} />,
         }}
       />
     </Tabs>
