@@ -69,9 +69,9 @@ const LoginForm: React.FC = () => {
         <View style={[isLogin ? styles.containerLogin : styles.containerRegister]}>
             <Text style={isLogin ? styles.titleLogin : styles.title}>{isLogin ? "Logga in" : "Skapa konto"}</Text>
 
-            <Text style={styles.label}>Email:</Text>
-            <TextInput
-                style={[isLogin ? styles.inputLogin : styles.inputRegister, { borderColor: getBorderColor(email, email.includes("@")) }]}
+            <Text style={[isLogin ? styles.labelEmailLogin : styles.labelRegister]}>Email:</Text>
+            <TextInput 
+                style={[isLogin ? styles.inputEmailLogin : styles.inputRegister, { borderColor: getBorderColor(email, email.includes("@")) }]}
                 keyboardType="email-address"
                 value={email}
                 onChangeText={setEmail}
@@ -86,9 +86,9 @@ const LoginForm: React.FC = () => {
                 </>
             )}
 
-            <Text style={styles.label}>Password:</Text>
+            <Text style={[isLogin ? styles.labelPasswordLogin : styles.label]}>Password:</Text>
             <TextInput
-                style={[isLogin ? styles.inputLogin : styles.inputRegister, { borderColor: getBorderColor(password, password.length >= 6) }]}
+                style={[isLogin ? styles.inputPasswordLogin : styles.inputRegister, { borderColor: getBorderColor(password, password.length >= 6) }]}
                 secureTextEntry
                 value={password}
                 onChangeText={setPassword}
