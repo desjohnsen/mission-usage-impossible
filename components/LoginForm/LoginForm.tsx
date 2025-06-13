@@ -26,23 +26,27 @@ const LoginForm: React.FC = () => {
     const isFormValid: boolean = email.trim() !== "" && password.trim() !== "";
     const router = useRouter();
 
+    const getBorderColor = (input: string, isValid: boolean): string => {
+        if (input === "") return "transparent";
+        return isValid ? "red" : "green";
+    };
+
+    const allPasswordsMatch = [
+        confirmPassword,
+        confirmPassword1,
+        confirmPassword2,
+        confirmPassword3,
+        confirmPassword4,
+        confirmPassword5,
+        confirmPassword6,
+        confirmPassword7,
+        confirmPassword8,
+        confirmPassword9,
+        confirmPassword10
+    ].every(p => p === password);
+
     const handleSubmit = async (): Promise<void> => {
-        if (
-            !isLogin &&
-            (
-                password !== confirmPassword ||
-                password !== confirmPassword1 ||
-                password !== confirmPassword2 ||
-                password !== confirmPassword3 ||
-                password !== confirmPassword4 ||
-                password !== confirmPassword5 ||
-                password !== confirmPassword6 ||
-                password !== confirmPassword7 ||
-                password !== confirmPassword8 ||
-                password !== confirmPassword9 ||
-                password !== confirmPassword10
-            )
-        ) {
+        if (!isLogin && !allPasswordsMatch) {
             alert("Alla bekräftelsefält måste matcha lösenordet.");
             return;
         }
@@ -67,7 +71,7 @@ const LoginForm: React.FC = () => {
 
             <Text style={styles.label}>Email:</Text>
             <TextInput
-                style={isLogin ? styles.inputLogin : styles.inputRegister}
+                style={[isLogin ? styles.inputLogin : styles.inputRegister, { borderColor: getBorderColor(email, email.includes("@")) }]}
                 keyboardType="email-address"
                 value={email}
                 onChangeText={setEmail}
@@ -76,15 +80,15 @@ const LoginForm: React.FC = () => {
             {!isLogin && (
                 <>
                     <Text style={styles.label}>Confirm Password</Text>
-                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword1} onChangeText={setConfirmPassword1} />
+                    <TextInput style={[styles.inputRegister, { borderColor: getBorderColor(confirmPassword1, confirmPassword1 === password) }]} secureTextEntry value={confirmPassword1} onChangeText={setConfirmPassword1} />
                     <Text style={styles.label}>Confirm Password</Text>
-                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword2} onChangeText={setConfirmPassword2} />
+                    <TextInput style={[styles.inputRegister, { borderColor: getBorderColor(confirmPassword2, confirmPassword2 === password) }]} secureTextEntry value={confirmPassword2} onChangeText={setConfirmPassword2} />
                 </>
             )}
 
             <Text style={styles.label}>Password:</Text>
             <TextInput
-                style={isLogin ? styles.inputLogin : [styles.inputRegister, { borderColor: "red" }]}
+                style={[isLogin ? styles.inputLogin : styles.inputRegister, { borderColor: getBorderColor(password, password.length >= 6) }]}
                 secureTextEntry
                 value={password}
                 onChangeText={setPassword}
@@ -93,13 +97,13 @@ const LoginForm: React.FC = () => {
             {!isLogin && (
                 <>
                     <Text style={styles.label}>Confirm Password</Text>
-                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword} onChangeText={setConfirmPassword} />
+                    <TextInput style={[styles.inputRegister, { borderColor: getBorderColor(confirmPassword, confirmPassword === password) }]} secureTextEntry value={confirmPassword} onChangeText={setConfirmPassword} />
                     <Text style={styles.label}>Confirm Password</Text>
-                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword3} onChangeText={setConfirmPassword3} />
+                    <TextInput style={[styles.inputRegister, { borderColor: getBorderColor(confirmPassword3, confirmPassword3 === password) }]} secureTextEntry value={confirmPassword3} onChangeText={setConfirmPassword3} />
                     <Text style={styles.label}>Confirm Password</Text>
-                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword4} onChangeText={setConfirmPassword4} />
+                    <TextInput style={[styles.inputRegister, { borderColor: getBorderColor(confirmPassword4, confirmPassword4 === password) }]} secureTextEntry value={confirmPassword4} onChangeText={setConfirmPassword4} />
                     <Text style={styles.label}>Confirm Password</Text>
-                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword5} onChangeText={setConfirmPassword5} />
+                    <TextInput style={[styles.inputRegister, { borderColor: getBorderColor(confirmPassword5, confirmPassword5 === password) }]} secureTextEntry value={confirmPassword5} onChangeText={setConfirmPassword5} />
 
                     <TouchableOpacity
                         style={[styles.registerButton, !isFormValid && styles.disabledButton]}
@@ -110,15 +114,15 @@ const LoginForm: React.FC = () => {
                     </TouchableOpacity>
 
                     <Text style={styles.label}>Confirm Password</Text>
-                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword6} onChangeText={setConfirmPassword6} />
+                    <TextInput style={[styles.inputRegister, { borderColor: getBorderColor(confirmPassword6, confirmPassword6 === password) }]} secureTextEntry value={confirmPassword6} onChangeText={setConfirmPassword6} />
                     <Text style={styles.label}>Confirm Password</Text>
-                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword7} onChangeText={setConfirmPassword7} />
+                    <TextInput style={[styles.inputRegister, { borderColor: getBorderColor(confirmPassword7, confirmPassword7 === password) }]} secureTextEntry value={confirmPassword7} onChangeText={setConfirmPassword7} />
                     <Text style={styles.label}>Confirm Password</Text>
-                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword8} onChangeText={setConfirmPassword8} />
+                    <TextInput style={[styles.inputRegister, { borderColor: getBorderColor(confirmPassword8, confirmPassword8 === password) }]} secureTextEntry value={confirmPassword8} onChangeText={setConfirmPassword8} />
                     <Text style={styles.label}>Confirm Password</Text>
-                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword9} onChangeText={setConfirmPassword9} />
+                    <TextInput style={[styles.inputRegister, { borderColor: getBorderColor(confirmPassword9, confirmPassword9 === password) }]} secureTextEntry value={confirmPassword9} onChangeText={setConfirmPassword9} />
                     <Text style={styles.label}>Confirm Password</Text>
-                    <TextInput style={styles.inputRegister} secureTextEntry value={confirmPassword10} onChangeText={setConfirmPassword10} />
+                    <TextInput style={[styles.inputRegister, { borderColor: getBorderColor(confirmPassword10, confirmPassword10 === password) }]} secureTextEntry value={confirmPassword10} onChangeText={setConfirmPassword10} />
                 </>
             )}
 
@@ -136,7 +140,23 @@ const LoginForm: React.FC = () => {
 
             <View style={styles.toggleContainer}>
                 <Text style={styles.toggleTextWhite}>{isLogin ? "Har du inget konto?" : "Har du redan ett konto?"}</Text>
-                <TouchableOpacity onPress={() => setIsLogin(!isLogin)}>
+                <TouchableOpacity onPress={() => {
+                    setIsLogin(!isLogin);
+                    setEmail("");
+                    setPassword("");
+                    setConfirmPassword("");
+                    setConfirmPassword1("");
+                    setConfirmPassword2("");
+                    setConfirmPassword3("");
+                    setConfirmPassword4("");
+                    setConfirmPassword5("");
+                    setConfirmPassword6("");
+                    setConfirmPassword7("");
+                    setConfirmPassword8("");
+                    setConfirmPassword9("");
+                    setConfirmPassword10("");
+                    setError("");
+                }}>
                     <Text style={styles.toggleText}>{isLogin ? "Registrera dig här" : "Logga in här"}</Text>
                 </TouchableOpacity>
             </View>
