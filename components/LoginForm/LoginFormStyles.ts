@@ -3,7 +3,8 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     containerRegister: {
         padding: 20,
-        backgroundColor: "#5b9f91",
+        // justifyContent: "center",
+        backgroundColor: "transparent",
         flex: 1,
     },
     containerLogin: {
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
         color: "red",
         fontWeight: "bold",
         marginLeft: 70,
-        
+
     },
     inputRegister: {
         borderWidth: 2,

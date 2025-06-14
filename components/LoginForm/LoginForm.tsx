@@ -2,10 +2,16 @@ import { useRouter } from "expo-router";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
+// import bg from "../../assets/images/pixel-bg.png";
 import { auth } from "../../firebase/firebase.config";
 import styles from "./LoginFormStyles";
 
-const LoginForm: React.FC = () => {
+type Props = {
+    isLogin: boolean;
+    setIsLogin: (value: boolean) => void;
+};
+
+const LoginForm: React.FC<Props> = ({ isLogin, setIsLogin }) => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -21,7 +27,6 @@ const LoginForm: React.FC = () => {
     const [confirmPassword9, setConfirmPassword9] = useState<string>("");
     const [confirmPassword10, setConfirmPassword10] = useState<string>("");
 
-    const [isLogin, setIsLogin] = useState<boolean>(true);
     const [error, setError] = useState<string>("");
     const isFormValid: boolean = email.trim() !== "" && password.trim() !== "";
     const router = useRouter();
@@ -81,7 +86,7 @@ const LoginForm: React.FC = () => {
 
     return (
         <View style={[isLogin ? styles.containerLogin : styles.containerRegister]}>
-            <Text style={isLogin ? styles.titleLogin : styles.title}>{isLogin ? "Logga in" : "Skapa konto"}</Text>
+            <Text style={isLogin ? styles.titleLogin : styles.title}>{isLogin ? "Login" : "Register"}</Text>
 
             <Text style={[isLogin ? styles.labelEmailLogin : styles.labelRegister]}>Email:</Text>
             <TextInput
@@ -153,7 +158,7 @@ const LoginForm: React.FC = () => {
             {error && <Text style={styles.error}>{error}</Text>}
 
             <View style={styles.toggleContainer}>
-                <Text style={styles.toggleTextWhite}>{isLogin ? "Har du inget konto?" : "Har du redan ett konto?"}</Text>
+                <Text style={styles.toggleTextWhite}>{isLogin ? "You dont have an account?" : "You already have an account?"}</Text>
                 <TouchableOpacity onPress={() => {
                     setIsLogin(!isLogin);
                     setEmail("");
@@ -171,7 +176,7 @@ const LoginForm: React.FC = () => {
                     setConfirmPassword10("");
                     setError("");
                 }}>
-                    <Text style={styles.toggleText}>{isLogin ? "Registrera dig här" : "Logga in här"}</Text>
+                    <Text style={styles.toggleText}>{isLogin ? "Register here" : "Login here"}</Text>
                 </TouchableOpacity>
             </View>
         </View>
