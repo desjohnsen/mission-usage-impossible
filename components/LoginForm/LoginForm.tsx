@@ -5,7 +5,12 @@ import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { auth } from "../../firebase/firebase.config";
 import styles from "./LoginFormStyles";
 
-const LoginForm: React.FC = () => {
+type Props = {
+    isLogin: boolean;
+    setIsLogin: (value: boolean) => void;
+};
+
+const LoginForm: React.FC<Props> = ({ isLogin, setIsLogin }) => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -21,7 +26,6 @@ const LoginForm: React.FC = () => {
     const [confirmPassword9, setConfirmPassword9] = useState<string>("");
     const [confirmPassword10, setConfirmPassword10] = useState<string>("");
 
-    const [isLogin, setIsLogin] = useState<boolean>(true);
     const [error, setError] = useState<string>("");
 
     const [backgroundColor, setBackgroundColor] = useState("#5b9f91");
@@ -39,10 +43,10 @@ const LoginForm: React.FC = () => {
 
     useEffect(() => {
         if (!isLogin) {
-            setBackgroundColor("#EFEFEF"); 
+            setBackgroundColor("#EFEFEF");
             return;
         }
-        
+
         let index = 0;
         const interval = setInterval(() => {
             index = (index + 1) % colors.length;
@@ -82,10 +86,24 @@ const LoginForm: React.FC = () => {
         try {
             if (isLogin) {
                 await signInWithEmailAndPassword(auth, email, password);
-                router.push("/explore");
+                router.push("/about");
             } else {
                 await createUserWithEmailAndPassword(auth, email, password);
-                router.push("/explore");
+                setIsLogin(true);
+                setEmail("");
+                setPassword("");
+                setConfirmPassword("");
+                setConfirmPassword1("");
+                setConfirmPassword2("");
+                setConfirmPassword3("");
+                setConfirmPassword4("");
+                setConfirmPassword5("");
+                setConfirmPassword6("");
+                setConfirmPassword7("");
+                setConfirmPassword8("");
+                setConfirmPassword9("");
+                setConfirmPassword10("");
+                setError("");
             }
         } catch (error: any) {
             console.error("Firebase error:", error);
@@ -94,16 +112,14 @@ const LoginForm: React.FC = () => {
     };
 
     return (
-        <View style={[
-            isLogin ? styles.containerLogin : styles.containerRegister,
-            { backgroundColor }
-        ]}>
+        <View style={isLogin ? [styles.containerLogin, { backgroundColor }] : styles.containerRegister}>
+
             <Text style={isLogin ? styles.titleLogin : styles.title}>
                 {isLogin ? "Logga in" : "Skapa konto"}
             </Text>
 
             <Text style={[isLogin ? styles.labelEmailLogin : styles.labelRegister]}>Email:</Text>
-            <TextInput 
+            <TextInput
                 style={[isLogin ? styles.inputEmailLogin : styles.inputRegister, { borderColor: getBorderColor(email, email.includes("@")) }]}
                 keyboardType="email-address"
                 value={email}
@@ -170,7 +186,7 @@ const LoginForm: React.FC = () => {
             {error && <Text style={styles.error}>{error}</Text>}
 
             <View style={styles.toggleContainer}>
-                <Text style={styles.toggleTextWhite}>{isLogin ? "Har du inget konto?" : "Har du redan ett konto?"}</Text>
+                <Text style={styles.toggleTextWhite}>{isLogin ? "You dont have an account?" : "You already have an account?"}</Text>
                 <TouchableOpacity onPress={() => {
                     setIsLogin(!isLogin);
                     setEmail("");
@@ -188,7 +204,7 @@ const LoginForm: React.FC = () => {
                     setConfirmPassword10("");
                     setError("");
                 }}>
-                    <Text style={styles.toggleText}>{isLogin ? "Registrera dig här" : "Logga in här"}</Text>
+                    <Text style={styles.toggleText}>{isLogin ? "Register here" : "Login here"}</Text>
                 </TouchableOpacity>
             </View>
         </View>

@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
     containerRegister: {
         padding: 20,
         flex: 1,
+        backgroundColor: "transparent",
     },
     containerLogin: {
         padding: 0,
