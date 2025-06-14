@@ -22,20 +22,6 @@ export function HelloWave() {
             <ThemedText style={styles.text}>👋</ThemedText>
         </Animated.View>
     );
-<<<<<<< HEAD
-=======
-  }, [rotationAnimation]);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ rotate: `${rotationAnimation.value}deg` }],
-  }));
-
-  return (
-    <Animated.View style={animatedStyle}>
-      <ThemedText style={styles.text}>🫥</ThemedText>
-    </Animated.View>
-  );
->>>>>>> Dessi
 }
 
 const styles = StyleSheet.create({

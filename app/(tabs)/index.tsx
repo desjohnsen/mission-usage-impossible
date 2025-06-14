@@ -1,18 +1,41 @@
-import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
-import LoginForm from "../../components/LoginForm/LoginForm";
+import { StyleSheet } from 'react-native';
 
-export default function HomeScreen() {
-    return (
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-            <LoginForm />
-        </ScrollView>
-    );
+import LogoutButton from '@/components/LogoutButton/LogoutButton';
+import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
+import { IconSymbol } from '@/components/ui/IconSymbol';
+
+export default function AboutScreen() {
+  return (
+    <ParallaxScrollView
+    headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
+    headerImage={
+      <IconSymbol
+        size={310}
+        color="#808080"
+        name="chevron.left.forwardslash.chevron.right"
+        style={styles.headerImage}
+      />
+    }>
+      <ThemedView style={styles.titleContainer}>
+        <ThemedText type="title">Home</ThemedText>
+      </ThemedView>
+      <ThemedText>This is the Home tab. You can describe your app, the team, or anything else here.</ThemedText>
+      <LogoutButton />
+    </ParallaxScrollView>
+  );
 }
 
 const styles = StyleSheet.create({
-    scrollContainer: {
-        flexGrow: 1,
-        justifyContent: "center",
-    },
+  headerImage: {
+    color: '#808080',
+    bottom: -90,
+    left: -35,
+    position: 'absolute',
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    gap: 8,
+  },
 });

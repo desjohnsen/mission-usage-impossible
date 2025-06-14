@@ -57,7 +57,21 @@ const LoginForm: React.FC = () => {
                 router.push("/about");
             } else {
                 await createUserWithEmailAndPassword(auth, email, password);
-                router.push("/index");
+                setIsLogin(true);
+                setEmail("");
+                setPassword("");
+                setConfirmPassword("");
+                setConfirmPassword1("");
+                setConfirmPassword2("");
+                setConfirmPassword3("");
+                setConfirmPassword4("");
+                setConfirmPassword5("");
+                setConfirmPassword6("");
+                setConfirmPassword7("");
+                setConfirmPassword8("");
+                setConfirmPassword9("");
+                setConfirmPassword10("");
+                setError("");
             }
         } catch (error: any) {
             console.error("Firebase error:", error);
@@ -70,7 +84,7 @@ const LoginForm: React.FC = () => {
             <Text style={isLogin ? styles.titleLogin : styles.title}>{isLogin ? "Logga in" : "Skapa konto"}</Text>
 
             <Text style={[isLogin ? styles.labelEmailLogin : styles.labelRegister]}>Email:</Text>
-            <TextInput 
+            <TextInput
                 style={[isLogin ? styles.inputEmailLogin : styles.inputRegister, { borderColor: getBorderColor(email, email.includes("@")) }]}
                 keyboardType="email-address"
                 value={email}
