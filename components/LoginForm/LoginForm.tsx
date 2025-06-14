@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { auth } from "../../firebase/firebase.config";
 import styles from "./LoginFormStyles";
@@ -23,13 +23,35 @@ const LoginForm: React.FC = () => {
 
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [error, setError] = useState<string>("");
-    const isFormValid: boolean = email.trim() !== "" && password.trim() !== "";
+
+    const [backgroundColor, setBackgroundColor] = useState("#5b9f91");
+
     const router = useRouter();
+
+    const colors = [
+        "#5b9f91",
+        "#f5a623",
+        "#7B61FF",
+        "#FF6F61",
+        "#2EC4B6",
+        "#FFD23F"
+    ];
+
+    useEffect(() => {
+        let index = 0;
+        const interval = setInterval(() => {
+            index = (index + 1) % colors.length;
+            setBackgroundColor(colors[index]);
+        }, 250);
+        return () => clearInterval(interval);
+    }, []);
 
     const getBorderColor = (input: string, isValid: boolean): string => {
         if (input === "") return "transparent";
         return isValid ? "red" : "green";
     };
+
+    const isFormValid: boolean = email.trim() !== "" && password.trim() !== "";
 
     const allPasswordsMatch = [
         confirmPassword,
@@ -66,8 +88,13 @@ const LoginForm: React.FC = () => {
     };
 
     return (
-        <View style={[isLogin ? styles.containerLogin : styles.containerRegister]}>
-            <Text style={isLogin ? styles.titleLogin : styles.title}>{isLogin ? "Logga in" : "Skapa konto"}</Text>
+        <View style={[
+            isLogin ? styles.containerLogin : styles.containerRegister,
+            { backgroundColor }
+        ]}>
+            <Text style={isLogin ? styles.titleLogin : styles.title}>
+                {isLogin ? "Logga in" : "Skapa konto"}
+            </Text>
 
             <Text style={[isLogin ? styles.labelEmailLogin : styles.labelRegister]}>Email:</Text>
             <TextInput 
@@ -106,9 +133,8 @@ const LoginForm: React.FC = () => {
                     <TextInput style={[styles.inputRegister, { borderColor: getBorderColor(confirmPassword5, confirmPassword5 === password) }]} secureTextEntry value={confirmPassword5} onChangeText={setConfirmPassword5} />
 
                     <TouchableOpacity
-                        style={[styles.registerButton, !isFormValid && styles.disabledButton]}
+                        style={[styles.registerButton]}
                         onPress={handleSubmit}
-                        disabled={!isFormValid}
                     >
                         <Text style={styles.buttonText}>Create</Text>
                     </TouchableOpacity>
@@ -128,9 +154,8 @@ const LoginForm: React.FC = () => {
 
             {isLogin && (
                 <TouchableOpacity
-                    style={[styles.loginButton, !isFormValid && styles.disabledButton]}
+                    style={[styles.loginButton]}
                     onPress={handleSubmit}
-                    disabled={!isFormValid}
                 >
                     <Text style={styles.buttonText}>Logga in</Text>
                 </TouchableOpacity>
