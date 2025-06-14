@@ -79,7 +79,7 @@ const LoginForm: React.FC<Props> = ({ isLogin, setIsLogin }) => {
 
     const handleSubmit = async (): Promise<void> => {
         if (!isLogin && !allPasswordsMatch) {
-            alert("Alla bekräftelsefält måste matcha lösenordet.");
+            alert("All confirm password must match password.");
             return;
         }
 
@@ -107,7 +107,7 @@ const LoginForm: React.FC<Props> = ({ isLogin, setIsLogin }) => {
             }
         } catch (error: any) {
             console.error("Firebase error:", error);
-            setError("Fel användarnamn eller lösenord");
+            setError("Incorrect email or password.");
         }
     };
 
@@ -115,7 +115,7 @@ const LoginForm: React.FC<Props> = ({ isLogin, setIsLogin }) => {
         <View style={isLogin ? [styles.containerLogin, { backgroundColor }] : styles.containerRegister}>
 
             <Text style={isLogin ? styles.titleLogin : styles.title}>
-                {isLogin ? "Logga in" : "Skapa konto"}
+                {isLogin ? "Login" : "Register"}
             </Text>
 
             <Text style={[isLogin ? styles.labelEmailLogin : styles.labelRegister]}>Email:</Text>
