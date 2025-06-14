@@ -38,13 +38,19 @@ const LoginForm: React.FC = () => {
     ];
 
     useEffect(() => {
+        if (!isLogin) {
+            setBackgroundColor("#EFEFEF"); 
+            return;
+        }
+        
         let index = 0;
         const interval = setInterval(() => {
             index = (index + 1) % colors.length;
             setBackgroundColor(colors[index]);
         }, 250);
         return () => clearInterval(interval);
-    }, []);
+
+    }, [isLogin]);
 
     const getBorderColor = (input: string, isValid: boolean): string => {
         if (input === "") return "transparent";
