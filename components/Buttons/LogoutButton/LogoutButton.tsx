@@ -1,8 +1,8 @@
+import { auth } from "@/firebase/firebase.config";
 import { router } from "expo-router";
 import { signOut } from "firebase/auth";
 import React, { useEffect, useRef } from "react";
 import { Animated, Easing, Platform, Text, TouchableOpacity, View } from "react-native";
-import { auth } from "../../firebase/firebase.config";
 
 const RotatingLogoutButton = () => {
   const rotateAnim = useRef(new Animated.Value(0)).current;

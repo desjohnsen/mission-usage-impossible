@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Animated, Easing, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import LogoutButton from '@/components/LogoutButton/LogoutButton';
+import LogoutButton from '@/components/Buttons/LogoutButton';
 import { ThemedView } from '@/components/ThemedView';
 
 const birdUri = "https://www.pngall.com/wp-content/uploads/15/Flappy-Bird-PNG-Free-Image.png";

@@ -1,7 +1,7 @@
+import { CustomExpoConfig } from "@/app.config";
 import Constants from "expo-constants";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { CustomExpoConfig } from "../app.config";
 
 const {
     apiKey,
@@ -27,3 +27,4 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 export { app, auth };
+

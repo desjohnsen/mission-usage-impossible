@@ -1,8 +1,8 @@
+import { auth } from "@/firebase/firebase.config";
 import { useRouter } from "expo-router";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import { auth } from "../../firebase/firebase.config";
 import styles from "./LoginFormStyles";
 
 type Props = {
@@ -114,8 +114,8 @@ const LoginForm: React.FC<Props> = ({ isLogin, setIsLogin }) => {
     return (
         <View style={isLogin ? [styles.containerLogin, { backgroundColor }] : styles.containerRegister}>
 
-            <Text style={isLogin ? styles.titleLogin : styles.title}>
-                {isLogin ? "Login" : "Register"}
+            <Text style={isLogin ? styles.titleLogin : styles.titleRegister}>
+                {isLogin ? "Login" : "REGISTER"}
             </Text>
 
             <Text style={[isLogin ? styles.labelEmailLogin : styles.labelRegister]}>Email:</Text>
