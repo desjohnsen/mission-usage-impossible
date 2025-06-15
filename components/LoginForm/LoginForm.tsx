@@ -179,7 +179,7 @@ const LoginForm: React.FC<Props> = ({ isLogin, setIsLogin }) => {
                     style={[styles.loginButton]}
                     onPress={handleSubmit}
                 >
-                    <Text style={styles.buttonText}>Logga in</Text>
+                    <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
             )}
 
