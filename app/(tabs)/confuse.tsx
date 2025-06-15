@@ -1,104 +1,142 @@
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import { Platform, StyleSheet } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+    Animated,
+    Dimensions,
+    Easing,
+    Image,
+    ImageBackground,
+    StyleSheet,
+} from 'react-native';
 
-export default function TabTwoScreen() {
-    return (
-        <ParallaxScrollView
-            headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-            headerImage={
-                <IconSymbol
-                    size={310}
-                    color="#808080"
-                    name="chevron.left.forwardslash.chevron.right"
-                    style={styles.headerImage}
-                />
-            }>
-            <ThemedView style={styles.titleContainer}>
-                <ThemedText type="title">Confuse</ThemedText>
-            </ThemedView>
-            <ThemedText>This app includes example code to help you get started.</ThemedText>
-            <Collapsible title="File-based routing">
-                <ThemedText>
-                    This app has two screens:{' '}
-                    <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-                    <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-                </ThemedText>
-                <ThemedText>
-                    The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-                    sets up the tab navigator.
-                </ThemedText>
-                <ExternalLink href="https://docs.expo.dev/router/introduction">
-                    <ThemedText type="link">Learn more</ThemedText>
-                </ExternalLink>
-            </Collapsible>
-            <Collapsible title="Android, iOS, and web support">
-                <ThemedText>
-                    You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-                    <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-                </ThemedText>
-            </Collapsible>
-            <Collapsible title="Images">
-                <ThemedText>
-                    For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-                    <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-                    different screen densities
-                </ThemedText>
-            </Collapsible>
-            <Collapsible title="Custom fonts">
-                <ThemedText>
-                    Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
-                    <ThemedText style={{ fontFamily: 'SpaceMono' }}>
-                        custom fonts such as this one.
-                    </ThemedText>
-                </ThemedText>
-                <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-                    <ThemedText type="link">Learn more</ThemedText>
-                </ExternalLink>
-            </Collapsible>
-            <Collapsible title="Light and dark mode components">
-                <ThemedText>
-                    This template has light and dark mode support. The{' '}
-                    <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-                    what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-                </ThemedText>
-                <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-                    <ThemedText type="link">Learn more</ThemedText>
-                </ExternalLink>
-            </Collapsible>
-            <Collapsible title="Animations">
-                <ThemedText>
-                    This template includes an example of an animated component. The{' '}
-                    <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-                    the powerful <ThemedText type="defaultSemiBold">react-native-reanimated</ThemedText>{' '}
-                    library to create a waving hand animation.
-                </ThemedText>
-                {Platform.select({
-                    ios: (
-                        <ThemedText>
-                            The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-                            component provides a parallax effect for the header image.
-                        </ThemedText>
-                    ),
-                })}
-            </Collapsible>
-        </ParallaxScrollView>
-    );
+const QUESTION_COUNT = 500;
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+
+type BalloonProps = {
+  left: number;
+  bottom: number;
+  duration: number;
+  onPop: () => void;
+  id: number;
+};
+
+function Balloons({ left, bottom, duration, onPop, id }: BalloonProps) {
+  const translateY = useRef(new Animated.Value(0)).current;
+  const scale = useRef(new Animated.Value(1)).current;
+  const opacity = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    Animated.timing(translateY, {
+      toValue: -SCREEN_HEIGHT,
+      duration,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    }).start(() => {
+      Animated.parallel([
+        Animated.timing(scale, { toValue: 2, duration: 300, useNativeDriver: true }),
+        Animated.timing(opacity, { toValue: 0, duration: 300, useNativeDriver: true }),
+      ]).start(() => {
+        onPop();
+      });
+    });
+  }, []);
+
+  return (
+    <Animated.Text
+      style={[
+        styles.balloon,
+        {
+          left,
+          bottom,
+          transform: [{ translateY }, { scale }],
+          opacity,
+        },
+      ]}
+    >
+      🎈
+    </Animated.Text>
+  );
+}
+
+export default function ConfuseScreen() {
+  const [balloons, setBalloons] = useState<
+    { id: number; left: number; bottom: number; duration: number }[]
+  >([]);
+
+  useEffect(() => {
+    startBalloons();
+  }, []);
+
+  const startBalloons = () => {
+    const newBalloons = Array.from({ length: QUESTION_COUNT }).map((_, i) => ({
+      id: i,
+      left: Math.random() * SCREEN_WIDTH,
+      bottom: Math.random() * SCREEN_HEIGHT,
+      duration: 3000 + Math.random() * 2000,
+    }));
+    setBalloons(newBalloons);
+  };
+
+  const handlePop = (id: number) => {
+    setBalloons(prev => {
+      const updated = prev.filter(b => b.id !== id);
+
+      if (updated.length === 0) {
+        setTimeout(startBalloons, 4000);
+      }
+
+      return updated;
+    });
+  };
+
+  return (
+    <ImageBackground
+      source={{
+        uri: 'https://wallpapercat.com/w/full/0/c/7/50695-1536x2732-iphone-hd-up-cartoon-background.jpg',
+      }}
+       style={styles.container}
+      resizeMode="cover"
+    >
+      <Image
+        source={{
+          uri: 'https://freepngimg.com/download/dvd/59983-movies-dvd-pixar-disc-carl-blu-ray-fredricksen.png',
+        }}
+        style={styles.centerImage}
+        resizeMode="contain"
+      />
+
+      {balloons.map(({ id, left, bottom, duration }) => (
+        <Balloons
+          key={id}
+          id={id}
+          left={left}
+          bottom={bottom}
+          duration={duration}
+          onPop={() => handlePop(id)}
+        />
+      ))}
+    </ImageBackground>
+  );
 }
 
 const styles = StyleSheet.create({
-    headerImage: {
-        color: '#808080',
-        bottom: -90,
-        left: -35,
-        position: 'absolute',
-    },
-    titleContainer: {
-        flexDirection: 'row',
-        gap: 8,
-    },
+  container: {
+    flex: 1,
+  },
+  balloon: {
+    position: 'absolute',
+    fontSize: 28,
+    fontWeight: 'bold',
+    zIndex: 3,
+  },
+  centerImage: {
+    position: 'absolute',
+    top: '59.5%',
+    left: '26%',
+    width: 350,
+    height: 350,
+    marginLeft: -74,
+    marginTop: -75,
+    zIndex: 2,
+  },
 });
