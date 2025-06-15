@@ -18,7 +18,7 @@ export default function AboutScreen() {
       />
     }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">About</ThemedText>
+        <ThemedText type="title">Profile</ThemedText>
       </ThemedView>
       <ThemedText>This is the About tab. You can describe your app, the team, or anything else here.</ThemedText>
     </ParallaxScrollView>

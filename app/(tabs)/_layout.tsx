@@ -1,9 +1,8 @@
 import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
@@ -35,23 +34,24 @@ export default function TabLayout() {
             }}
         >
             <Tabs.Screen
-                name="index"
+                name="unlock"
                 options={{
-                    title: 'Home',
-                    tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+                    title: 'Unlock',
+                    tabBarIcon: ({ color, size }) => <Ionicons size={28} name="sad" color={color} />,
                 }}
             />
             <Tabs.Screen
-                name="explore"
+                name="confuse"
                 options={{
-                    title: 'Explore',
-                    tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+                    title: 'Confuse',
+                    tabBarIcon: ({ color, size }) => <FontAwesome5 size={26} name="meh" color={color} solid />,
                 }}
+    
             />
             <Tabs.Screen
-                name="about"
+                name="profile"
                 options={{
-                    title: 'About',
+                    title: 'Profile',
                     tabBarIcon: ({ color, size }) => <Ionicons size={28} name="happy" color={color} />,
                 }}
             />

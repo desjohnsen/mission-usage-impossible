@@ -86,7 +86,7 @@ const LoginForm: React.FC<Props> = ({ isLogin, setIsLogin }) => {
         try {
             if (isLogin) {
                 await signInWithEmailAndPassword(auth, email, password);
-                router.push("/about");
+                router.push("/profile");
             } else {
                 await createUserWithEmailAndPassword(auth, email, password);
                 setIsLogin(true);
