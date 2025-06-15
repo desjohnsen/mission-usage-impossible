@@ -119,7 +119,7 @@ export default function App() {
         <TouchableOpacity onPress={() => changeDirection('DOWN')} style={styles.button}><Text>↓</Text></TouchableOpacity>
       </View>
 
-      {gameOver && <Text style={{ color: 'red', fontSize: 20, marginTop: 20 }}>Game Over!</Text>}
+      {gameOver && <Text style={{ color: 'red', fontSize: 10, marginTop: 20 }}>Game Over!</Text>}
     </View>
   );
 }
