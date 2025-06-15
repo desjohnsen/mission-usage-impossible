@@ -10,12 +10,13 @@ const styles = StyleSheet.create({
         padding: 0,
         flex: 1,
     },
-    title: {
-        fontSize: 20,
-        marginTop: 20,
-        marginBottom: 20,
+    titleRegister: {
+        fontSize: 80,
+        marginTop: 5,
+        marginBottom: 5,
         color: "#00ff00",
-        fontWeight: "bold",
+        fontWeight: "900",
+        letterSpacing: -10,
         textAlign: "center",
     },
     titleLogin: {

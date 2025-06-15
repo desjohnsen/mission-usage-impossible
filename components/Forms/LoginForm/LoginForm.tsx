@@ -114,8 +114,8 @@ const LoginForm: React.FC<Props> = ({ isLogin, setIsLogin }) => {
     return (
         <View style={isLogin ? [styles.containerLogin, { backgroundColor }] : styles.containerRegister}>
 
-            <Text style={isLogin ? styles.titleLogin : styles.title}>
-                {isLogin ? "Login" : "Register"}
+            <Text style={isLogin ? styles.titleLogin : styles.titleRegister}>
+                {isLogin ? "Login" : "REGISTER"}
             </Text>
 
             <Text style={[isLogin ? styles.labelEmailLogin : styles.labelRegister]}>Email:</Text>
