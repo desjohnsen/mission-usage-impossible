@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet } from 'react-native';
 
-import LogoutButton from '@/components/LogoutButton/LogoutButton';
+import LogoutButton from '@/components/Buttons/LogoutButton/LogoutButton';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 

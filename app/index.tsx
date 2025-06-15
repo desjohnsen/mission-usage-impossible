@@ -1,7 +1,8 @@
 import bg from "@/assets/images/pixel-bg.png";
-import LoginForm from "@/components/LoginForm/LoginForm";
+import NyanCats from "@/components/Animations/NyanCats";
+import LoginForm from "@/components/Forms/LoginForm/LoginForm";
 import React, { useState } from "react";
-import { ImageBackground, ScrollView, StyleSheet } from "react-native";
+import { ImageBackground, ScrollView, StyleSheet, View } from "react-native";
 
 export default function Index() {
     const [isLogin, setIsLogin] = useState(true);
@@ -14,7 +15,10 @@ export default function Index() {
 
     return isLogin ? content : (
         <ImageBackground source={bg} style={styles.background} resizeMode="cover">
-            {content}
+            <View style={{ flex: 1 }}>
+                <NyanCats />
+                {content}
+            </View>
         </ImageBackground>
     );
 }

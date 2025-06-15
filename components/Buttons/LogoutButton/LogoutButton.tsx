@@ -1,8 +1,8 @@
+import { auth } from "@/firebase/firebase.config";
 import { router } from "expo-router";
 import { signOut } from "firebase/auth";
 import React from "react";
 import { Platform, Text, TouchableOpacity } from "react-native";
-import { auth } from "../../firebase/firebase.config";
 
 const LogoutButton = () => {
     const handleLogout = async () => {

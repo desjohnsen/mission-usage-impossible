@@ -1,8 +1,8 @@
+import { auth } from "@/firebase/firebase.config";
 import { useRouter } from "expo-router";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import { auth } from "../../firebase/firebase.config";
 import styles from "./LoginFormStyles";
 
 type Props = {
