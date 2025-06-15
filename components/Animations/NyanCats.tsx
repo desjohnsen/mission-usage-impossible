@@ -4,7 +4,7 @@ import { Animated, Dimensions, StyleSheet, View } from "react-native";
 const { width, height } = Dimensions.get("window");
 
 const NyanCats = () => {
-    const translateX = new Animated.Value(-200);
+    const translateX = new Animated.Value(-400);
     const translateY = new Animated.Value(height);
 
     useEffect(() => {
@@ -16,7 +16,7 @@ const NyanCats = () => {
                     useNativeDriver: true,
                 }),
                 Animated.timing(translateX, {
-                    toValue: -200,
+                    toValue: -300,
                     duration: 0,
                     useNativeDriver: true,
                 }),
@@ -26,7 +26,7 @@ const NyanCats = () => {
         const loopY = Animated.loop(
             Animated.sequence([
                 Animated.timing(translateY, {
-                    toValue: -200,
+                    toValue: -300,
                     duration: 8000,
                     useNativeDriver: true,
                 }),
@@ -66,16 +66,16 @@ const NyanCats = () => {
 const styles = StyleSheet.create({
     catX: {
         position: "absolute",
-        top: 50,
-        width: 150,
-        height: 60,
+        top: 330,
+        width: 300,
+        height: 120,
     },
     catY: {
         position: "absolute",
         left: "50%",
-        width: 80,
-        height: 150,
-        marginLeft: -40,
+        width: 160,
+        height: 300,
+        marginLeft: -70,
     },
 });
 
