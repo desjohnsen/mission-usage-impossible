@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   gameContainer: {
     width: '80%',
     alignItems: 'center',
-    marginTop: 190,
+    marginTop: 240,
   },
   instruction: {
     color: 'white',
