@@ -1,49 +1,57 @@
+// app/index.tsx
 import bg from "@/assets/images/pixel-bg.png";
 import NyanCats from "@/components/Animations/NyanCats";
-import LoginForm from "@/components/Forms/LoginForm/LoginForm";
+import Login from "@/components/Forms/Login/Login";
+import Register from "@/components/Forms/Register/Register";
 import React, { useState } from "react";
 import { ImageBackground, ScrollView, StyleSheet, View } from "react-native";
 
-const Index = (): React.ReactElement => {
-  const [isLogin, setIsLogin] = useState<boolean>(true);
+export default function Index(): React.ReactElement {
+  const [isLogin, setIsLogin] = useState(true);
 
   const content = (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <LoginForm isLogin={isLogin} setIsLogin={setIsLogin} />
-    </ScrollView>
+    <View style={styles.container}>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+      >
+        {isLogin ? (
+          <Login setIsLogin={setIsLogin} />
+        ) : (
+          <>
+            <NyanCats />
+            <Register setIsLogin={setIsLogin} />
+          </>
+        )}
+      </ScrollView>
+    </View>
   );
 
   if (isLogin) {
-    return (
-      <View style={styles.background}>
-        <NyanCats />
-        {content}
-      </View>
-    );
+    return content;
   }
 
+  // Wrap only register content in background
   return (
-    <ImageBackground
-      source={bg}
-      style={styles.background}
-      resizeMode="cover"
-    >
-      <NyanCats />
+    <ImageBackground source={bg} style={styles.background} resizeMode="cover">
       {content}
     </ImageBackground>
   );
-};
+}
 
 const styles = StyleSheet.create({
   background: {
-    flexGrow: 1,
-    width: "100%",
-    height: "100%",
+    flex: 1,
   },
-  scrollContainer: {
+  container: {
+    flex: 1,
+  },
+  scroll: {
+    flex: 1,
+  },
+  scrollContent: {
     flexGrow: 1,
     justifyContent: "center",
   },
 });
-
-export default Index;
