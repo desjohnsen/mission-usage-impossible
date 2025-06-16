@@ -2,12 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { Animated, Easing, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import LogoutButton from '@/components/Buttons/LogoutButton/LogoutButton';
-import { ThemedView } from '@/components/ThemedView';
 
 const birdUri = "https://www.pngall.com/wp-content/uploads/15/Flappy-Bird-PNG-Free-Image.png";
 const UNLOCK_COUNT = 20;
 
-export default function UnlockScreen() {  
+export default function UnlockScreen() {
   const bounceAnim = useRef(new Animated.Value(0)).current;
   const rotateAnim = useRef(new Animated.Value(0)).current;
   const colorAnim = useRef(new Animated.Value(0)).current;
@@ -19,36 +18,42 @@ export default function UnlockScreen() {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.loop(
+    const bounceAnimation = Animated.loop(
       Animated.sequence([
         Animated.parallel([
           Animated.timing(bounceAnim, {
             toValue: -30,
             duration: 80,
-            useNativeDriver: true,
+            useNativeDriver: false,
           }),
           Animated.timing(rotateAnim, {
             toValue: 1,
             duration: 80,
-            useNativeDriver: true,
+            useNativeDriver: false,
           }),
         ]),
         Animated.parallel([
           Animated.timing(bounceAnim, {
             toValue: 0,
             duration: 80,
-            useNativeDriver: true,
+            useNativeDriver: false,
           }),
           Animated.timing(rotateAnim, {
             toValue: 0,
             duration: 80,
-            useNativeDriver: true,
+            useNativeDriver: false,
           }),
         ]),
       ])
-    ).start();
+    );
 
-    Animated.loop(
+    bounceAnimation.start();
+
+    return () => bounceAnimation.stop();
+  }, []);
+
+  useEffect(() => {
+    const colorLoop = Animated.loop(
       Animated.sequence([
         Animated.timing(colorAnim, {
           toValue: 1,
@@ -75,7 +80,11 @@ export default function UnlockScreen() {
           easing: Easing.linear,
         }),
       ])
-    ).start();
+    );
+
+    colorLoop.start();
+
+    return () => colorLoop.stop();
   }, []);
 
   useEffect(() => {
@@ -83,7 +92,7 @@ export default function UnlockScreen() {
       Animated.timing(fadeAnim, {
         toValue: 1,
         duration: 500,
-        useNativeDriver: true,
+        useNativeDriver: false,
       }).start();
     }
   }, [pressCount]);
@@ -106,13 +115,13 @@ export default function UnlockScreen() {
         Animated.timing(birdTranslateY, {
           toValue: -150,
           duration: 500,
-          useNativeDriver: true,
+          useNativeDriver: false,
           easing: Easing.out(Easing.quad),
         }),
         Animated.timing(birdOpacity, {
           toValue: 0,
           duration: 500,
-          useNativeDriver: true,
+          useNativeDriver: false,
           easing: Easing.linear,
         }),
       ]),
@@ -120,12 +129,12 @@ export default function UnlockScreen() {
         Animated.timing(birdTranslateY, {
           toValue: 0,
           duration: 0,
-          useNativeDriver: true,
+          useNativeDriver: false,
         }),
         Animated.timing(birdOpacity, {
           toValue: 1,
           duration: 0,
-          useNativeDriver: true,
+          useNativeDriver: false,
         }),
       ]),
     ]).start();
@@ -135,25 +144,6 @@ export default function UnlockScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <ThemedView style={styles.titleContainer}>
-        <Animated.Text
-          style={{
-            transform: [
-              { translateY: bounceAnim },
-              { rotate },
-            ],
-            color: neonColor,
-            fontSize: 40,
-            fontWeight: 'bold',
-            textShadowColor: '#FFFFFF',
-            textShadowOffset: { width: 0, height: 0 },
-            textShadowRadius: 20,
-            textAlign: 'center',
-          }}
-        >
-        </Animated.Text>
-      </ThemedView>
-
       <View style={styles.gameContainer}>
         <Text style={styles.instruction}>Tap the bird {UNLOCK_COUNT} times to unlock the logout button</Text>
 
@@ -196,14 +186,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 60,
   },
-  titleContainer: {
-    flexDirection: 'row',
-    marginBottom: 190,
-    justifyContent: 'center',
-  },
   gameContainer: {
     width: '80%',
     alignItems: 'center',
+    marginTop: 190,
   },
   instruction: {
     color: 'white',
@@ -232,7 +218,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.5,
     shadowRadius: 4,
-    elevation: 8, 
+    elevation: 8,
   },
   counterText: {
     color: 'white',
