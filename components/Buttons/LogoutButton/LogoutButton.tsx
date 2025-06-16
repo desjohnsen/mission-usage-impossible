@@ -2,7 +2,7 @@ import { auth } from "@/firebase/firebase.config";
 import { router } from "expo-router";
 import { signOut } from "firebase/auth";
 import React, { useEffect, useRef } from "react";
-import { Animated, Easing, Platform, Text, TouchableOpacity, View } from "react-native";
+import { Animated, Easing, Text, TouchableOpacity, View } from "react-native";
 
 const RotatingLogoutButton = () => {
   const rotateAnim = useRef(new Animated.Value(0)).current;
@@ -26,11 +26,7 @@ const RotatingLogoutButton = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      if (Platform.OS === "web") {
-        window.location.href = "/";
-      } else {
-        router.replace("/");
-      }
+      router.push("/");
     } catch (error) {
       console.error("Logout failed", error);
     }
