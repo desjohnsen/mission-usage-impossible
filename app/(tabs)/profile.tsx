@@ -52,7 +52,7 @@ export default function ProfileScreen() {
             <View style={styles.innerPopup}>
             <Text style={[styles.popupText, { marginBottom: 18 }]}>You thought you were done?</Text>
               <TouchableOpacity onPress={startPopups} style={styles.closeBtn} activeOpacity={0.7}>
-                <Text style={styles.closeBtnText}>Restart</Text>
+                <Text style={styles.closeBtnText}>Close</Text>
               </TouchableOpacity>
             </View>
           </View>
