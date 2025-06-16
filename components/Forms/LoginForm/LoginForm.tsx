@@ -10,7 +10,7 @@ type Props = {
     setIsLogin: (value: boolean) => void;
 };
 
-const LoginForm: React.FC<Props> = ({ isLogin, setIsLogin }) => {
+const LoginForm = ({ isLogin, setIsLogin }: Props): React.ReactElement => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -113,7 +113,6 @@ const LoginForm: React.FC<Props> = ({ isLogin, setIsLogin }) => {
 
     return (
         <View style={isLogin ? [styles.containerLogin, { backgroundColor }] : styles.containerRegister}>
-
             <Text style={isLogin ? styles.titleLogin : styles.titleRegister}>
                 {isLogin ? "Login" : "REGISTER"}
             </Text>
@@ -183,10 +182,12 @@ const LoginForm: React.FC<Props> = ({ isLogin, setIsLogin }) => {
                 </TouchableOpacity>
             )}
 
-            {error && <Text style={styles.error}>{error}</Text>}
+            {error !== "" && <Text style={styles.error}>{error}</Text>}
 
             <View style={styles.toggleContainer}>
-                <Text style={styles.toggleTextWhite}>{isLogin ? "You dont have an account?" : "You already have an account?"}</Text>
+                <Text style={styles.toggleTextWhite}>
+                    {isLogin ? "You dont have an account?" : "You already have an account?"}
+                </Text>
                 <TouchableOpacity onPress={() => {
                     setIsLogin(!isLogin);
                     setEmail("");

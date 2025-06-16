@@ -7,54 +7,55 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
 
-export default function TabLayout() {
-    const colorScheme = useColorScheme();
+const TabLayout = (): React.ReactElement => {
+  const colorScheme = useColorScheme();
 
-    return (
-        <Tabs
-            screenOptions={{
-                tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-                headerShown: false,
-                tabBarButton: HapticTab,
-                tabBarBackground: TabBarBackground,
-                tabBarStyle: Platform.select({
-                    ios: {
-                        position: 'absolute',
-                        height: 80,
-                        padding: 1,
-                    },
-                    default: {
-                        height: 80,
-                        padding: 1,
-                    },
-                }),
-                tabBarLabelStyle: {
-                    padding: 1,
-                },
-            }}
-        >
-            <Tabs.Screen
-                name="unlock"
-                options={{
-                    title: 'Unlock',
-                    tabBarIcon: ({ color, size }) => <Ionicons size={28} name="sad" color={color} />,
-                }}
-            />
-            <Tabs.Screen
-                name="confuse"
-                options={{
-                    title: 'Confuse',
-                    tabBarIcon: ({ color, size }) => <FontAwesome5 size={26} name="meh" color={color} solid />,
-                }}
-    
-            />
-            <Tabs.Screen
-                name="profile"
-                options={{
-                    title: 'Profile',
-                    tabBarIcon: ({ color, size }) => <Ionicons size={28} name="happy" color={color} />,
-                }}
-            />
-        </Tabs>
-    );
-}
+  return (
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        headerShown: false,
+        tabBarButton: HapticTab,
+        tabBarBackground: TabBarBackground,
+        tabBarStyle: Platform.select({
+          ios: {
+            position: 'absolute',
+            height: 80,
+            padding: 1,
+          },
+          default: {
+            height: 80,
+            padding: 1,
+          },
+        }),
+        tabBarLabelStyle: {
+          padding: 1,
+        },
+      }}
+    >
+      <Tabs.Screen
+        name="unlock"
+        options={{
+          title: 'Unlock',
+          tabBarIcon: ({ color }) => <Ionicons size={28} name="sad" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="confuse"
+        options={{
+          title: 'Confuse',
+          tabBarIcon: ({ color }) => <FontAwesome5 size={26} name="meh" color={color} solid />,
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color }) => <Ionicons size={28} name="happy" color={color} />,
+        }}
+      />
+    </Tabs>
+  );
+};
+
+export default TabLayout;

@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     titleRegister: {
-        fontSize: 80,
+        fontSize: 70,
         marginTop: 5,
         marginBottom: 5,
         color: "#00ff00",

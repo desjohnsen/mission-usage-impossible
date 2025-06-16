@@ -7,15 +7,14 @@ import { ThemedView } from '@/components/ThemedView';
 const birdUri = "https://www.pngall.com/wp-content/uploads/15/Flappy-Bird-PNG-Free-Image.png";
 const UNLOCK_COUNT = 20;
 
-export default function UnlockScreen() {  
+const UnlockScreen = (): React.ReactElement => {
   const bounceAnim = useRef(new Animated.Value(0)).current;
   const rotateAnim = useRef(new Animated.Value(0)).current;
   const colorAnim = useRef(new Animated.Value(0)).current;
 
-  const [pressCount, setPressCount] = useState(0);
+  const [pressCount, setPressCount] = useState<number>(0);
   const birdTranslateY = useRef(new Animated.Value(0)).current;
   const birdOpacity = useRef(new Animated.Value(1)).current;
-
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -98,7 +97,7 @@ export default function UnlockScreen() {
     outputRange: ['#39FF14', '#FF00FF', '#00FFFF', '#FFFB00'],
   });
 
-  const handleBirdPress = () => {
+  const handleBirdPress = (): void => {
     if (pressCount >= UNLOCK_COUNT) return;
 
     Animated.sequence([
@@ -187,7 +186,7 @@ export default function UnlockScreen() {
       </View>
     </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -232,7 +231,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.5,
     shadowRadius: 4,
-    elevation: 8, 
+    elevation: 8,
   },
   counterText: {
     color: 'white',
@@ -246,3 +245,5 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
 });
+
+export default UnlockScreen;

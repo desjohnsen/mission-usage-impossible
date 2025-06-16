@@ -4,10 +4,10 @@ import { Dimensions, ImageBackground, StyleSheet, Text, TouchableOpacity, View }
 const POPUP_COUNT = 15;
 const BACKGROUND_IMAGE = { uri: 'https://i.pinimg.com/736x/43/3c/18/433c181d16b295710f5688e8ce57719b.jpg' };
 
-export default function ProfileScreen() {
+const ProfileScreen = (): React.ReactElement => {
   const [visiblePopups, setVisiblePopups] = useState<number[]>([]);
 
-  const startPopups = () => {
+  const startPopups = (): void => {
     setVisiblePopups([]);
     for (let i = 0; i < POPUP_COUNT; i++) {
       setTimeout(() => {
@@ -20,7 +20,7 @@ export default function ProfileScreen() {
     startPopups();
   }, []);
 
-  const handleClose = (id: number) => {
+  const handleClose = (id: number): void => {
     setVisiblePopups(prev => prev.filter(popupId => popupId !== id));
   };
 
@@ -50,7 +50,7 @@ export default function ProfileScreen() {
         ) : (
           <View style={[styles.outerPopup, { top: 290, left: 50 }]}>
             <View style={styles.innerPopup}>
-            <Text style={[styles.popupText, { marginBottom: 18 }]}>You thought you were done?</Text>
+              <Text style={[styles.popupText, { marginBottom: 18 }]}>You thought you were done?</Text>
               <TouchableOpacity onPress={startPopups} style={styles.closeBtn} activeOpacity={0.7}>
                 <Text style={styles.closeBtnText}>Close</Text>
               </TouchableOpacity>
@@ -60,7 +60,7 @@ export default function ProfileScreen() {
       </View>
     </ImageBackground>
   );
-}
+};
 
 const styles = StyleSheet.create({
   background: {
@@ -125,3 +125,5 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
 });
+
+export default ProfileScreen;

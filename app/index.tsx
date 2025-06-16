@@ -4,33 +4,46 @@ import LoginForm from "@/components/Forms/LoginForm/LoginForm";
 import React, { useState } from "react";
 import { ImageBackground, ScrollView, StyleSheet, View } from "react-native";
 
-export default function Index() {
-    const [isLogin, setIsLogin] = useState(true);
+const Index = (): React.ReactElement => {
+  const [isLogin, setIsLogin] = useState<boolean>(true);
 
-    const content = (
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-            <LoginForm isLogin={isLogin} setIsLogin={setIsLogin} />
-        </ScrollView>
-    );
+  const content = (
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <LoginForm isLogin={isLogin} setIsLogin={setIsLogin} />
+    </ScrollView>
+  );
 
-    return isLogin ? content : (
-        <ImageBackground source={bg} style={styles.background} resizeMode="cover">
-            <View style={{ flex: 1 }}>
-                <NyanCats />
-                {content}
-            </View>
-        </ImageBackground>
+  if (isLogin) {
+    return (
+      <View style={styles.background}>
+        <NyanCats />
+        {content}
+      </View>
     );
-}
+  }
+
+  return (
+    <ImageBackground
+      source={bg}
+      style={styles.background}
+      resizeMode="cover"
+    >
+      <NyanCats />
+      {content}
+    </ImageBackground>
+  );
+};
 
 const styles = StyleSheet.create({
-    background: {
-        flex: 1,
-        width: "100%",
-        height: "100%",
-    },
-    scrollContainer: {
-        flexGrow: 1,
-        justifyContent: "center",
-    },
+  background: {
+    flexGrow: 1,
+    width: "100%",
+    height: "100%",
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: "center",
+  },
 });
+
+export default Index;

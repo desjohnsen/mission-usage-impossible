@@ -4,7 +4,7 @@ import { signOut } from "firebase/auth";
 import React, { useEffect, useRef } from "react";
 import { Animated, Easing, Text, TouchableOpacity, View } from "react-native";
 
-const RotatingLogoutButton = () => {
+const RotatingLogoutButton = (): React.ReactElement => {
   const rotateAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const RotatingLogoutButton = () => {
     outputRange: ["0deg", "360deg"],
   });
 
-  const handleLogout = async () => {
+  const handleLogout = async (): Promise<void> => {
     try {
       await signOut(auth);
       router.push("/");
