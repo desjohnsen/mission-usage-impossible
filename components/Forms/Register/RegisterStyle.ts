@@ -13,7 +13,7 @@ const registerStyles = StyleSheet.create({
     fontSize: 70,
     marginTop: 5,
     marginBottom: 5,
-    color: "#00ff00",
+    color: "rgba(11, 156, 0, 0.4)",
     fontWeight: "900",
     letterSpacing: -10,
     textAlign: "center",
@@ -27,7 +27,7 @@ const registerStyles = StyleSheet.create({
   labelRegister: {
     marginTop: 10,
     marginBottom: 5,
-    color: "orange",
+    color: "rgba(255, 100, 100, 0.9)",
     fontWeight: "bold",
   },
   inputRegister: {
@@ -44,7 +44,7 @@ const registerStyles = StyleSheet.create({
     width: "100%",
   },
   registerButton: {
-    backgroundColor: "#ff0000",
+    backgroundColor: "rgba(11, 156, 0, 0.4)",
     paddingVertical: 18,
     marginTop: 20,
     marginBottom: 10,
@@ -55,7 +55,7 @@ const registerStyles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 14,
-    color: "rgba(11, 156, 0, 0.4)",
+    color: "rgba(255, 100, 100, 0.9)",
   },
   toggleContainer: {
     flexDirection: "row",
