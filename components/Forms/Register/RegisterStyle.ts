@@ -5,6 +5,7 @@ const registerStyles = StyleSheet.create({
     padding: 20,
     flex: 1,
     backgroundColor: "transparent",
+    width: "100%",
   },
   titleRegister: {
     fontSize: 70,
@@ -38,6 +39,7 @@ const registerStyles = StyleSheet.create({
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 4,
+    width: "100%",
   },
   registerButton: {
     backgroundColor: "#ff0000",

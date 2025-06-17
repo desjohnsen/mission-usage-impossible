@@ -46,10 +46,13 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    width: "100%",
+    overflow: "hidden",
     position: "relative",
   },
   scroll: {
     flex: 1,
+    width: "100%",
   },
   scrollContent: {
     flexGrow: 1,
