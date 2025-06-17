@@ -5,12 +5,13 @@ const POPUP_COUNT = 18;
 const BACKGROUND_IMAGE = { uri: 'https://i.pinimg.com/736x/43/3c/18/433c181d16b295710f5688e8ce57719b.jpg' };
 
 const onboardingTexts = [
-  "Welcome to Maxèe! Here you can enjoy fun mini games and playful interactions.",
-  "Try the Flappy Bird game on the Unlock screen, tap the bird 20 times to unlock logout.",
-  "Challenge yourself with the tricky Snake game on the Confuse screen, featuring a confusing UI.",
-  "On this screen, all popups and text appear in a fun, nostalgic Windows 95 style.",
-  "Have fun discovering all the playful and interactive elements built into Maxèe!"
-]
+  "Welcome to Maxèe! This is a playful app full of mini games and surprises.",
+  "Create an account or log in to begin your playful journey.",
+  "On the Unlock screen, tap the bird 20 times to reveal the logout button.",
+  "Try to beat the tricky Snake game on the Confuse screen.",
+  "On this screen, popups and messages appear in a nostalgic Windows 95 style.",
+  "Have fun exploring Maxèe’s odd UI and hidden interactions!"
+];
 
 const ProfileScreen = (): React.ReactElement => {
   const [visiblePopups, setVisiblePopups] = useState<number[]>([]);
