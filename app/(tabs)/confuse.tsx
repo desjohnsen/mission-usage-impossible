@@ -35,7 +35,7 @@ const GlitchTitle = () => {
   ).current;
 
   useEffect(() => {
-    animatedValues.forEach((anim, i) => {
+    animatedValues.forEach((anim) => {
       const loop = () => {
         Animated.sequence([
           Animated.timing(anim, {
@@ -86,6 +86,7 @@ const Confuse = (): React.ReactElement => {
   const [countdown, setCountdown] = useState<number>(10);
   const [showMenu, setShowMenu] = useState<boolean>(true);
   const animatedBorder = useRef(new Animated.Value(0)).current;
+  const neonAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     if (showMenu) {
@@ -99,9 +100,36 @@ const Confuse = (): React.ReactElement => {
     }
   }, [showMenu]);
 
+  useEffect(() => {
+    if (gameOver) {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(neonAnim, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: false,
+          }),
+          Animated.timing(neonAnim, {
+            toValue: 0,
+            duration: 500,
+            useNativeDriver: false,
+          }),
+        ])
+      ).start();
+    } else {
+      neonAnim.stopAnimation();
+      neonAnim.setValue(0);
+    }
+  }, [gameOver]);
+
   const animatedBorderColor = animatedBorder.interpolate({
     inputRange: [0, 0.5, 1],
     outputRange: ['#99cc00', '#003300', '#99cc00'],
+  });
+
+  const neonColor = neonAnim.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: ['#ff00ff', '#00ffff', '#ffff00'],
   });
 
   useEffect(() => {
@@ -244,7 +272,14 @@ const Confuse = (): React.ReactElement => {
       <Modal visible={gameOver} transparent animationType="fade">
         <View style={styles.popup}>
           <View style={styles.popupContent}>
-            <Text style={styles.popupText}>YOU WIN</Text>
+            <Animated.Text style={[styles.popupText, { 
+              color: neonColor,
+              textShadowColor: neonColor,
+              textShadowOffset: { width: 0, height: 0 },
+              textShadowRadius: 20,
+            }]}>
+              YOU WIN
+            </Animated.Text>
             <Pressable
               onPress={() => {
                 setShowMenu(true);
@@ -252,7 +287,7 @@ const Confuse = (): React.ReactElement => {
               }}
               style={styles.restartButton}
             >
-              <Text style={styles.closeText}>Restart</Text>
+              <Text style={styles.closeText}>RESTART</Text>
             </Pressable>
           </View>
         </View>
@@ -279,7 +314,7 @@ const styles = StyleSheet.create({
   },
   score: {
     position: 'absolute',
-    top: 175,
+    top: 208,
     marginRight: 170,
     fontSize: 16,
     fontFamily: 'monospace',
@@ -303,92 +338,90 @@ const styles = StyleSheet.create({
   cell: {
     width: CELL_SIZE,
     height: CELL_SIZE,
-    backgroundColor: '#a4c639',
+    borderWidth: 0.1,
+    borderColor: '#99cc00',
   },
   snake: {
     backgroundColor: '#003300',
   },
   snakeHead: {
-    backgroundColor: '#001a00',
+    backgroundColor: '#005500',
   },
   food: {
-    backgroundColor: '#336600',
+    backgroundColor: '#ff3300',
   },
   dpad: {
-    marginTop: 20,
-    alignItems: 'center',
+    marginTop: 10,
   },
   dpadRow: {
     flexDirection: 'row',
   },
   dpadButton: {
-    width: 60,
-    height: 60,
-    borderWidth: 2,
-    borderColor: '#003300',
+    width: 40,
+    height: 40,
+    margin: 3,
+    backgroundColor: '#003300',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 4,
-    backgroundColor: '#a4c639',
+    borderRadius: 4,
   },
   dpadEmpty: {
-    width: 60,
-    height: 60,
-    margin: 4,
+    width: 40,
+    height: 40,
+    margin: 3,
+  },
+  arrow: {
+    fontSize: 24,
+    color: '#99cc00',
   },
   playButton: {
-    width: 90,
-    height: 30,
+    width: 95,
+    height: 35,
     borderWidth: 2,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20,
-    backgroundColor: '#a4c639',
+    borderRadius: 4,
   },
   playButtonText: {
-    fontSize: 16,
+    fontSize: 19,
     fontFamily: 'monospace',
     color: '#003300',
-  },
-  arrow: {
-    fontSize: 24,
-    fontFamily: 'monospace',
-    color: '#003300',
+    letterSpacing: 2,
   },
   popup: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.8)',
-    justifyContent: 'center',
+    backgroundColor: '#000000c0',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   popupContent: {
-    backgroundColor: '#a4c639',
-    padding: 30,
-    borderWidth: 2,
-    borderColor: '#003300',
+    backgroundColor: 'transparent',
+    borderRadius: 8,
+    padding: 20,
     alignItems: 'center',
+    borderWidth: 4,
+    borderColor: '#99cc00',
   },
   popupText: {
-    fontSize: 30,
-    fontWeight: 800,
+    fontSize: 50,
     fontFamily: 'monospace',
-    color: '#003300',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  closeText: {
-    fontSize: 10.5,
-    fontFamily: 'monospace',
-    color: '#003300',
-    textAlign: 'center',
+    fontWeight: 'bold',
+    letterSpacing: 6,
   },
   restartButton: {
-    width: 90,
-    height: 35,
-    borderWidth: 2,
-    borderColor: '#003300',
-    paddingVertical: 8,
-    backgroundColor: '#a4c639',
+    marginTop: 18,
+    justifyContent: "center",
+    padding: 8,
+    backgroundColor: '#99cc00',
+    borderRadius: 4,
+  },
+  closeText: {
+    fontSize: 15,
+    fontFamily: 'monospace',
+    fontWeight: 800,
+    color: '#003300',
+    letterSpacing: 1,
   },
 });
 
