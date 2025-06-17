@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 const registerStyles = StyleSheet.create({
   containerRegister: {
     padding: 20,
+    paddingBottom: 400,
     flex: 1,
     backgroundColor: "transparent",
     width: "100%",
