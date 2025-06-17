@@ -7,7 +7,7 @@ import { StatusBar } from "expo-status-bar";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 
-export default function RootLayout() {
+const RootLayout = (): React.ReactElement | null => {
     const colorScheme = useColorScheme();
     const [user, setUser] = useState<any>(null);
     const [loading, setLoading] = useState(true);
@@ -46,3 +46,5 @@ export default function RootLayout() {
         </ThemeProvider>
     );
 }
+
+export default RootLayout;

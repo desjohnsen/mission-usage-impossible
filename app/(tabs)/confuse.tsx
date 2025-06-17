@@ -20,13 +20,13 @@ const getRandomFoodPosition = (snake: Coord[]): Coord => {
   return freeSpaces[Math.floor(Math.random() * freeSpaces.length)];
 };
 
-export default function App() {
-  const [snake, setSnake] = useState(getInitialSnake());
-  const [food, setFood] = useState(getRandomFoodPosition(getInitialSnake()));
+const Confuse = (): React.ReactElement => {
+  const [snake, setSnake] = useState<Coord[]>(getInitialSnake());
+  const [food, setFood] = useState<Coord>(getRandomFoodPosition(getInitialSnake()));
   const [direction, setDirection] = useState<'UP' | 'DOWN' | 'LEFT' | 'RIGHT'>('RIGHT');
-  const [gameOver, setGameOver] = useState(false);
-  const [score, setScore] = useState(0);
-  const [started, setStarted] = useState(false);
+  const [gameOver, setGameOver] = useState<boolean>(false);
+  const [score, setScore] = useState<number>(0);
+  const [started, setStarted] = useState<boolean>(false);
 
   useEffect(() => {
     if (gameOver || !started) return;
@@ -54,7 +54,7 @@ export default function App() {
         const newSnake = [newHead, ...prev];
 
         if (ateFood) {
-          setScore(prevScore => prevScore + 1);  // Här fixat med funktionell uppdatering
+          setScore(prevScore => prevScore + 1);
           setFood(getRandomFoodPosition(newSnake));
         } else {
           newSnake.pop();
@@ -67,7 +67,7 @@ export default function App() {
     return () => clearInterval(interval);
   }, [direction, food, gameOver, started]);
 
-  const changeDirection = (newDir: typeof direction) => {
+  const changeDirection = (newDir: typeof direction): void => {
     if (
       (direction === 'UP' && newDir === 'DOWN') ||
       (direction === 'DOWN' && newDir === 'UP') ||
@@ -77,7 +77,7 @@ export default function App() {
     setDirection(newDir);
   };
 
-  const resetGame = () => {
+  const resetGame = (): void => {
     const initialSnake = getInitialSnake();
     setSnake(initialSnake);
     setFood(getRandomFoodPosition(initialSnake));
@@ -87,7 +87,7 @@ export default function App() {
     setStarted(false);
   };
 
-  const startGame = () => {
+  const startGame = (): void => {
     resetGame();
     setStarted(true);
   };
@@ -96,9 +96,7 @@ export default function App() {
     <View style={styles.container}>
       <Text style={styles.menuTitle}>RETRO SNAKE</Text>
 
-      {started && (
-        <Text style={styles.score}>SCORE: {score}</Text>
-      )}
+      {started && <Text style={styles.score}>SCORE: {score}</Text>}
 
       <View style={styles.grid}>
         {Array.from({ length: GRID_SIZE }).map((_, y) => (
@@ -174,7 +172,7 @@ export default function App() {
       </Modal>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -298,3 +296,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#a4c639',
   },
 });
+
+export default Confuse;
