@@ -1,4 +1,3 @@
-// app/index.tsx
 import bg from "@/assets/images/pixel-bg.png";
 import NyanCats from "@/components/Animations/NyanCats";
 import Login from "@/components/Forms/Login/Login";
@@ -9,33 +8,32 @@ import { ImageBackground, ScrollView, StyleSheet, View } from "react-native";
 export default function Index(): React.ReactElement {
   const [isLogin, setIsLogin] = useState(true);
 
-  const content = (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}
-        keyboardShouldPersistTaps="handled"
-      >
-        {isLogin ? (
-          <Login setIsLogin={setIsLogin} />
-        ) : (
-          <>
-            <NyanCats />
-            <Register setIsLogin={setIsLogin} />
-          </>
-        )}
-      </ScrollView>
-    </View>
-  );
-
   if (isLogin) {
-    return content;
+    return (
+      <View style={styles.container}>
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps="handled"
+        >
+          <Login setIsLogin={setIsLogin} />
+        </ScrollView>
+      </View>
+    );
   }
 
-  // Wrap only register content in background
   return (
     <ImageBackground source={bg} style={styles.background} resizeMode="cover">
-      {content}
+      <View style={styles.container}>
+        <NyanCats />
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps="handled"
+        >
+          <Register setIsLogin={setIsLogin} />
+        </ScrollView>
+      </View>
     </ImageBackground>
   );
 }
@@ -43,9 +41,12 @@ export default function Index(): React.ReactElement {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
+    width: "100%",
+    height: "100%",
   },
   container: {
     flex: 1,
+    position: "relative",
   },
   scroll: {
     flex: 1,

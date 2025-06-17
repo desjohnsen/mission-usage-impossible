@@ -13,113 +13,53 @@ const NyanCats = (): React.ReactElement => {
   const translateY3 = new Animated.Value(height);
 
   useEffect(() => {
-    const loopX1 = Animated.loop(
-      Animated.sequence([
-        Animated.timing(translateX1, {
-          toValue: width,
-          duration: 5000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(translateX1, {
-          toValue: -300,
-          duration: 0,
-          useNativeDriver: true,
-        }),
-      ])
-    );
-    const loopX2 = Animated.loop(
-      Animated.sequence([
-        Animated.timing(translateX2, {
-          toValue: width,
-          duration: 6000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(translateX2, {
-          toValue: -300,
-          duration: 0,
-          useNativeDriver: true,
-        }),
-      ])
-    );
-    const loopX3 = Animated.loop(
-      Animated.sequence([
-        Animated.timing(translateX3, {
-          toValue: width,
-          duration: 4000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(translateX3, {
-          toValue: -300,
-          duration: 0,
-          useNativeDriver: true,
-        }),
-      ])
-    );
+    const createXLoop = (anim: Animated.Value, duration: number) =>
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(anim, {
+            toValue: width,
+            duration,
+            useNativeDriver: true,
+          }),
+          Animated.timing(anim, {
+            toValue: -300,
+            duration: 0,
+            useNativeDriver: true,
+          }),
+        ])
+      );
 
-    const loopY1 = Animated.loop(
-      Animated.sequence([
-        Animated.timing(translateY1, {
-          toValue: -300,
-          duration: 7000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(translateY1, {
-          toValue: height,
-          duration: 0,
-          useNativeDriver: true,
-        }),
-      ])
-    );
-    const loopY2 = Animated.loop(
-      Animated.sequence([
-        Animated.timing(translateY2, {
-          toValue: -300,
-          duration: 8000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(translateY2, {
-          toValue: height,
-          duration: 0,
-          useNativeDriver: true,
-        }),
-      ])
-    );
-    const loopY3 = Animated.loop(
-      Animated.sequence([
-        Animated.timing(translateY3, {
-          toValue: -300,
-          duration: 6000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(translateY3, {
-          toValue: height,
-          duration: 0,
-          useNativeDriver: true,
-        }),
-      ])
-    );
+    const createYLoop = (anim: Animated.Value, duration: number) =>
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(anim, {
+            toValue: -300,
+            duration,
+            useNativeDriver: true,
+          }),
+          Animated.timing(anim, {
+            toValue: height,
+            duration: 0,
+            useNativeDriver: true,
+          }),
+        ])
+      );
 
-    loopX1.start();
-    loopX2.start();
-    loopX3.start();
+    const loops = [
+      createXLoop(translateX1, 5000),
+      createXLoop(translateX2, 6000),
+      createXLoop(translateX3, 4000),
+      createYLoop(translateY1, 7000),
+      createYLoop(translateY2, 8000),
+      createYLoop(translateY3, 6000),
+    ];
 
-    loopY1.start();
-    loopY2.start();
-    loopY3.start();
-
-    return () => {
-      loopX1.stop();
-      loopX2.stop();
-      loopX3.stop();
-
-      loopY1.stop();
-      loopY2.stop();
-      loopY3.stop();
-    };
+    loops.forEach(loop => loop.start());
+    return () => loops.forEach(loop => loop.stop());
   }, []);
 
   return (
-    <View style={StyleSheet.absoluteFill}>
+    <View style={StyleSheet.absoluteFill} pointerEvents="none">
       <Animated.Image
         source={require("@/assets/images/nyan-cat-x.png")}
         style={[styles.catX1, { transform: [{ translateX: translateX1 }] }]}
@@ -135,7 +75,6 @@ const NyanCats = (): React.ReactElement => {
         style={[styles.catX3, { transform: [{ translateX: translateX3 }] }]}
         resizeMode="contain"
       />
-
       <Animated.Image
         source={require("@/assets/images/nyan-cat-y.png")}
         style={[styles.catY1, { transform: [{ translateY: translateY1 }] }]}
@@ -174,7 +113,6 @@ const styles = StyleSheet.create({
     width: 300,
     height: 120,
   },
-
   catY1: {
     position: "absolute",
     left: width * 0.01,

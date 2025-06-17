@@ -4,7 +4,7 @@ import { signOut } from "firebase/auth";
 import React, { useEffect, useRef } from "react";
 import { Animated, Easing, Text, TouchableOpacity, View } from "react-native";
 
-const RotatingLogoutButton = (): React.ReactElement => {
+const LogoutButton = (): React.ReactElement => {
   const rotateAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -61,4 +61,4 @@ const RotatingLogoutButton = (): React.ReactElement => {
   );
 };
 
-export default RotatingLogoutButton;
+export default LogoutButton;
