@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Dimensions, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const POPUP_COUNT = 15;
+const POPUP_COUNT = 19;
 const BACKGROUND_IMAGE = { uri: 'https://i.pinimg.com/736x/43/3c/18/433c181d16b295710f5688e8ce57719b.jpg' };
 
 export default function ProfileScreen() {
