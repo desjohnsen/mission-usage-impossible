@@ -7,7 +7,7 @@ const loginStyles = StyleSheet.create({
   },
   titleLogin: {
     fontSize: 15,
-    marginTop: 20,
+    marginTop: 130,
     fontWeight: "bold",
     textAlign: "right",
     color: "rgba(255, 100, 100, 0.5)",
@@ -19,7 +19,6 @@ const loginStyles = StyleSheet.create({
     fontWeight: "bold",
   },
   inputEmailLogin: {
-    borderWidth: 1,
     borderRadius: 17,
     padding: 12,
     marginBottom: 10,
@@ -36,7 +35,6 @@ const loginStyles = StyleSheet.create({
     paddingLeft: 120,
   },
   inputPasswordLogin: {
-    borderWidth: 1,
     borderColor: "green",
     borderRadius: 17,
     padding: 12,

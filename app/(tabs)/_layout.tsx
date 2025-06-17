@@ -20,7 +20,7 @@ const TabLayout = (): React.ReactElement => {
         tabBarStyle: Platform.select({
           ios: {
             position: 'absolute',
-            height: 120,
+            height: 88,
             padding: 1,
             paddingTop: 5,
           },
