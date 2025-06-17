@@ -1,5 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  Animated,
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 const CELL_SIZE = 12;
 const GRID_SIZE = 20;
@@ -18,6 +26,54 @@ const getRandomFoodPosition = (snake: Coord[]): Coord => {
     }
   }
   return freeSpaces[Math.floor(Math.random() * freeSpaces.length)];
+};
+
+const GlitchTitle = () => {
+  const title = 'RETRO SNAKE';
+  const animatedValues = useRef(
+    Array.from({ length: title.length }, () => new Animated.Value(0))
+  ).current;
+
+  useEffect(() => {
+    animatedValues.forEach((anim, i) => {
+      const loop = () => {
+        Animated.sequence([
+          Animated.timing(anim, {
+            toValue: -3,
+            duration: 100 + Math.random() * 200,
+            useNativeDriver: true,
+          }),
+          Animated.timing(anim, {
+            toValue: 3,
+            duration: 100 + Math.random() * 200,
+            useNativeDriver: true,
+          }),
+          Animated.timing(anim, {
+            toValue: 0,
+            duration: 100 + Math.random() * 200,
+            useNativeDriver: true,
+          }),
+        ]).start(() => loop());
+      };
+      loop();
+    });
+  }, [animatedValues]);
+
+  return (
+    <View style={{ flexDirection: 'row' }}>
+      {title.split('').map((char, i) => (
+        <Animated.Text
+          key={i}
+          style={[
+            styles.menuTitle,
+            { transform: [{ translateY: animatedValues[i] }] },
+          ]}
+        >
+          {char}
+        </Animated.Text>
+      ))}
+    </View>
+  );
 };
 
 const Confuse = (): React.ReactElement => {
@@ -102,7 +158,7 @@ const Confuse = (): React.ReactElement => {
 
       {showMenu ? (
         <>
-          <Text style={styles.menuTitle}>RETRO SNAKE</Text>
+          <GlitchTitle />
           <TouchableOpacity onPress={resetGame} style={styles.playButton}>
             <Text style={styles.playButtonText}>PLAY</Text>
           </TouchableOpacity>
