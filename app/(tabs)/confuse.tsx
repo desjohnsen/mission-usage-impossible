@@ -396,6 +396,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   popupContent: {
+    marginBottom: 145,
     backgroundColor: 'transparent',
     borderRadius: 8,
     padding: 20,
