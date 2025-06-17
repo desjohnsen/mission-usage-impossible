@@ -316,8 +316,8 @@ const styles = StyleSheet.create({
     margin: 4,
   },
   playButton: {
-    width: 100,
-    height: 60,
+    width: 90,
+    height: 30,
     borderWidth: 2,
     borderColor: '#003300',
     alignItems: 'center',
