@@ -348,7 +348,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#005500',
   },
   food: {
-    backgroundColor: '#ff3300',
+    backgroundColor: 'green',
   },
   dpad: {
     marginTop: 10,
