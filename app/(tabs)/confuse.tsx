@@ -27,9 +27,16 @@ const Confuse = (): React.ReactElement => {
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
   const [started, setStarted] = useState<boolean>(false);
+  const [countdown, setCountdown] = useState<number>(10);
+  const [showMenu, setShowMenu] = useState<boolean>(true);
 
   useEffect(() => {
-    if (gameOver || !started) return;
+    if (showMenu || gameOver) return;
+
+    if (countdown > 0) {
+      const timer = setTimeout(() => setCountdown(prev => prev - 1), 1000);
+      return () => clearTimeout(timer);
+    }
 
     const interval = setInterval(() => {
       setSnake(prev => {
@@ -62,10 +69,10 @@ const Confuse = (): React.ReactElement => {
 
         return newSnake;
       });
-    }, 100);
+    }, 200);
 
     return () => clearInterval(interval);
-  }, [direction, food, gameOver, started]);
+  }, [direction, food, gameOver, started, countdown, showMenu]);
 
   const changeDirection = (newDir: typeof direction): void => {
     if (
@@ -84,87 +91,91 @@ const Confuse = (): React.ReactElement => {
     setDirection('RIGHT');
     setGameOver(false);
     setScore(0);
-    setStarted(false);
-  };
-
-  const startGame = (): void => {
-    resetGame();
+    setCountdown(10);
     setStarted(true);
+    setShowMenu(false);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.menuTitle}>RETRO SNAKE</Text>
+      {!showMenu && countdown <= 0 && <Text style={styles.score}>SCORE: {score}</Text>}
 
-      {started && <Text style={styles.score}>SCORE: {score}</Text>}
+      {showMenu ? (
+        <>
+          <Text style={styles.menuTitle}>RETRO SNAKE</Text>
+          <TouchableOpacity onPress={resetGame} style={styles.playButton}>
+            <Text style={styles.playButtonText}>PLAY</Text>
+          </TouchableOpacity>
+        </>
+      ) : countdown > 0 ? (
+        <Text style={styles.countdown}>Starting in: {countdown}</Text>
+      ) : (
+        <>
+          <View style={styles.grid}>
+            {Array.from({ length: GRID_SIZE }).map((_, y) => (
+              <View key={y} style={styles.row}>
+                {Array.from({ length: GRID_SIZE }).map((_, x) => {
+                  const isSnake = snake.some(seg => seg.x === x && seg.y === y);
+                  const isHead = snake[0]?.x === x && snake[0]?.y === y;
+                  const isFood = food.x === x && food.y === y;
 
-      <View style={styles.grid}>
-        {Array.from({ length: GRID_SIZE }).map((_, y) => (
-          <View key={y} style={styles.row}>
-            {Array.from({ length: GRID_SIZE }).map((_, x) => {
-              const isSnake = snake.some(seg => seg.x === x && seg.y === y);
-              const isHead = snake[0]?.x === x && snake[0]?.y === y;
-              const isFood = food.x === x && food.y === y;
-
-              return (
-                <View
-                  key={x}
-                  style={[
-                    styles.cell,
-                    isSnake && styles.snake,
-                    isHead && styles.snakeHead,
-                    isFood && styles.food,
-                  ]}
-                />
-              );
-            })}
+                  return (
+                    <View
+                      key={x}
+                      style={[
+                        styles.cell,
+                        isSnake && styles.snake,
+                        isHead && styles.snakeHead,
+                        isFood && styles.food,
+                      ]}
+                    />
+                  );
+                })}
+              </View>
+            ))}
           </View>
-        ))}
-      </View>
 
-      {/* D-pad controls */}
-      <View style={styles.dpad}>
-        <View style={styles.dpadRow}>
-          <View style={styles.dpadEmpty} />
-          <TouchableOpacity onPress={() => changeDirection('UP')} style={styles.dpadButton}>
-            <Text style={styles.arrow}>↑</Text>
-          </TouchableOpacity>
-          <View style={styles.dpadEmpty} />
-        </View>
+          <View style={styles.dpad}>
+            <View style={styles.dpadRow}>
+              <View style={styles.dpadEmpty} />
+              <TouchableOpacity onPress={() => changeDirection('UP')} style={styles.dpadButton}>
+                <Text style={styles.arrow}>↑</Text>
+              </TouchableOpacity>
+              <View style={styles.dpadEmpty} />
+            </View>
 
-        <View style={styles.dpadRow}>
-          <TouchableOpacity onPress={() => changeDirection('LEFT')} style={styles.dpadButton}>
-            <Text style={styles.arrow}>←</Text>
-          </TouchableOpacity>
+            <View style={styles.dpadRow}>
+              <TouchableOpacity onPress={() => changeDirection('LEFT')} style={styles.dpadButton}>
+                <Text style={styles.arrow}>←</Text>
+              </TouchableOpacity>
+              <View style={styles.dpadButton} />
+              <TouchableOpacity onPress={() => changeDirection('RIGHT')} style={styles.dpadButton}>
+                <Text style={styles.arrow}>→</Text>
+              </TouchableOpacity>
+            </View>
 
-          {!started ? (
-            <TouchableOpacity onPress={startGame} style={styles.playButton}>
-              <Text style={styles.playButtonText}>PLAY</Text>
-            </TouchableOpacity>
-          ) : (
-            <View style={styles.dpadButton} />
-          )}
+            <View style={styles.dpadRow}>
+              <View style={styles.dpadEmpty} />
+              <TouchableOpacity onPress={() => changeDirection('DOWN')} style={styles.dpadButton}>
+                <Text style={styles.arrow}>↓</Text>
+              </TouchableOpacity>
+              <View style={styles.dpadEmpty} />
+            </View>
+          </View>
+        </>
+      )}
 
-          <TouchableOpacity onPress={() => changeDirection('RIGHT')} style={styles.dpadButton}>
-            <Text style={styles.arrow}>→</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.dpadRow}>
-          <View style={styles.dpadEmpty} />
-          <TouchableOpacity onPress={() => changeDirection('DOWN')} style={styles.dpadButton}>
-            <Text style={styles.arrow}>↓</Text>
-          </TouchableOpacity>
-          <View style={styles.dpadEmpty} />
-        </View>
-      </View>
-
-      {/* Game over modal */}
       <Modal visible={gameOver} transparent animationType="fade">
         <View style={styles.popup}>
           <View style={styles.popupContent}>
-            <Text style={styles.popupText}>GAME OVER</Text>
-            <Pressable onPress={resetGame} style={styles.restartButton}>
+            <Text style={styles.popupText}>YOU WIN</Text>
+            <Pressable
+              onPress={() => {
+                setShowMenu(true);
+                setGameOver(false);
+              }}
+              style={styles.restartButton}
+            >
               <Text style={styles.closeText}>Restart</Text>
             </Pressable>
           </View>
@@ -190,6 +201,18 @@ const styles = StyleSheet.create({
     textShadowRadius: 1,
     marginBottom: 10,
   },
+  score: {
+    position: 'absolute',
+    top: 40,
+    fontSize: 16,
+    fontFamily: 'monospace',
+    color: '#003300',
+  },
+  countdown: {
+    fontSize: 20,
+    fontFamily: 'monospace',
+    color: '#003300',
+  },
   grid: {
     width: CELL_SIZE * GRID_SIZE,
     height: CELL_SIZE * GRID_SIZE,
@@ -214,12 +237,6 @@ const styles = StyleSheet.create({
   food: {
     backgroundColor: '#336600',
   },
-  score: {
-    fontSize: 16,
-    fontFamily: 'monospace',
-    color: '#003300',
-    marginBottom: 10,
-  },
   dpad: {
     marginTop: 20,
     alignItems: 'center',
@@ -243,17 +260,17 @@ const styles = StyleSheet.create({
     margin: 4,
   },
   playButton: {
-    width: 60,
+    width: 100,
     height: 60,
     borderWidth: 2,
     borderColor: '#003300',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 4,
+    marginTop: 20,
     backgroundColor: '#a4c639',
   },
   playButtonText: {
-    fontSize: 12,
+    fontSize: 16,
     fontFamily: 'monospace',
     color: '#003300',
   },
