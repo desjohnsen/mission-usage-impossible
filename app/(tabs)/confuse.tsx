@@ -85,6 +85,24 @@ const Confuse = (): React.ReactElement => {
   const [started, setStarted] = useState<boolean>(false);
   const [countdown, setCountdown] = useState<number>(10);
   const [showMenu, setShowMenu] = useState<boolean>(true);
+  const animatedBorder = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (showMenu) {
+      Animated.loop(
+        Animated.timing(animatedBorder, {
+          toValue: 1,
+          duration: 1500,
+          useNativeDriver: false,
+        })
+      ).start();
+    }
+  }, [showMenu]);
+
+  const animatedBorderColor = animatedBorder.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: ['#99cc00', '#003300', '#99cc00'],
+  });
 
   useEffect(() => {
     if (showMenu || gameOver) return;
@@ -159,9 +177,11 @@ const Confuse = (): React.ReactElement => {
       {showMenu ? (
         <>
           <GlitchTitle />
-          <TouchableOpacity onPress={resetGame} style={styles.playButton}>
-            <Text style={styles.playButtonText}>PLAY</Text>
-          </TouchableOpacity>
+          <Animated.View style={[styles.playButton, { borderColor: animatedBorderColor }]}>
+            <TouchableOpacity onPress={resetGame}>
+              <Text style={styles.playButtonText}>PLAY</Text>
+            </TouchableOpacity>
+          </Animated.View>
         </>
       ) : countdown > 0 ? (
         <Text style={styles.countdown}>Starting in: {countdown}</Text>
@@ -259,7 +279,8 @@ const styles = StyleSheet.create({
   },
   score: {
     position: 'absolute',
-    top: 40,
+    top: 175,
+    marginRight: 170,
     fontSize: 16,
     fontFamily: 'monospace',
     color: '#003300',
@@ -319,7 +340,6 @@ const styles = StyleSheet.create({
     width: 90,
     height: 30,
     borderWidth: 2,
-    borderColor: '#003300',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20,
@@ -349,22 +369,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   popupText: {
-    fontSize: 20,
+    fontSize: 30,
+    fontWeight: 800,
     fontFamily: 'monospace',
     color: '#003300',
     marginBottom: 20,
     textAlign: 'center',
   },
   closeText: {
-    fontSize: 20,
+    fontSize: 10.5,
     fontFamily: 'monospace',
     color: '#003300',
     textAlign: 'center',
   },
   restartButton: {
+    width: 90,
+    height: 35,
     borderWidth: 2,
     borderColor: '#003300',
-    paddingHorizontal: 20,
     paddingVertical: 8,
     backgroundColor: '#a4c639',
   },
