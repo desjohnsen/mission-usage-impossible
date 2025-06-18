@@ -37,8 +37,8 @@ const Login = ({ setIsLogin }: Props): React.ReactElement => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/(tabs)/profile");
-    } catch (err: any) {
-      console.error("Login error:", err.message);
+    } catch (error: any) {
+      console.error("Login error:", error.message);
       setError("Incorrect email or password.");
     }
   };

@@ -65,9 +65,9 @@ const Register = ({ setIsLogin }: Props): React.ReactElement => {
       setConfirmPassword9("");
       setConfirmPassword10("");
       setError("");
-    } catch (err: any) {
-      console.error("Registration error:", err.message);
-      setError("Registration failed: " + err.message);
+    } catch (error: any) {
+      console.error("Registration error:", error.message);
+      setError("Registration failed: " + error.message);
     }
   };
 

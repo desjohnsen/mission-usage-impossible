@@ -24,10 +24,6 @@ const RootLayout = (): React.ReactElement | null => {
         return unsub;
     }, []);
 
-    useEffect(() => {
-        console.log("Auth state changed:", user);
-    }, [user])
-
     if (!fontsLoaded || loading) return null;
 
     return (
