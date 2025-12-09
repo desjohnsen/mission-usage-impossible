@@ -1,7 +1,6 @@
 # Mission: Usage Impossible
 A deliberately frustrating mobile app built with React Native, Expo, and Firebase Authentication.   
-Created as a school assignment to explore bad UX intentionally. The app blends UI, mini-games, and playful interactions   
-inspired by retro games like Snake and Flappy Bird to deliver a chaotic, nostalgic, and intentionally annoying user experience.
+Created as a school assignment to explore bad UX intentionally. The app blends UI, mini-games, and playful interactions inspired by retro games like Snake and Flappy Bird to deliver a chaotic, nostalgic, and intentionally annoying user experience.
 
 ## Features
 - User registration and login via Firebase Authentication
