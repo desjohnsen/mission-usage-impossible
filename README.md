@@ -1,50 +1,63 @@
-# Welcome to your Expo app 👋
+# Mission: Usage Impossible
+A deliberately frustrating mobile app built with React Native, Expo, and Firebase Authentication.   
+Created as a school assignment to explore bad UX intentionally. The app blends UI, mini-games, and playful interactions   
+inspired by retro games like Snake and Flappy Bird to deliver a chaotic, nostalgic, and intentionally annoying user experience.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Features
+- User registration and login via Firebase Authentication
+- Onboarding flow that intentionally confuses and frustrates
+- Multiple screens: landing page, profile page, and a "chaos" page with deliberately irritating UI elements and mini-games
+- Retro-inspired, nostalgic design and playful animations
+- Full functionality, with all flows working despite intentionally poor UX
 
-## Get started
+## Tech Stack
+- React Native
+- Expo
+- Firebase Authentication
+- TypeScript 
 
-1. Install dependencies
+## Notes
+This was a collaborative school project developed with a teammate.  
+- My teammate handled backend and authentication logic  
+- I focused on UI, front-end interactions, and game functionality  
 
+## How to Run the App
+
+To experience the app on your device:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/desjohnsen/mission-usage-impossible.git
+   ```
+
+2. Navigate into the project folder:
+   ```bash
+   cd mission-usage-impossible
+   ```
+
+3. Install dependencies:
    ```bash
    npm install
    ```
-
-2. Start the app
-
+   
+4. Start the Expo development server:
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+5. Download the Expo Go app on your mobile device for the best experience.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+6. Scan the QR code displayed in the terminal or browser to open the app on your device.
+   Make sure your mobile device is on the same network as your computer.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Live Demo
+If you want to try the app on desktop, you can access the web build here:  
+https://mission-usage-impossible.netlify.app
 
-## Get a fresh project
+## Test Info
+Use the test account below to explore the app:
 
-When you're ready, run:
+**Email:** `test@live.se`  
+**Password:** `test123`
 
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+You can also register your own account directly in the app.
